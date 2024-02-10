@@ -28,7 +28,9 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final userData = Provider.of<data>(context).login;
-    final getUser = Provider.of<data>(context).getUser();
+   final getUser = Provider.of<data>(context).getUser;
+    final clear = Provider.of<data>(context).clearUsers;
+
 
 
     return Scaffold(
@@ -120,8 +122,9 @@ class _LoginState extends State<Login> {
                           onPressed: () async{
                             if(await userData(username,password)){
                               print("logged in");
-                              //getUser;
-                              Navigator.pushNamed(context, homePage.routName);
+                              getUser();
+                              Navigator.pushReplacementNamed(context, homePage.routName);
+                              clear();
                             }
                             if(username!=""&&password!=""){
                               usernametextcontroller.clear();

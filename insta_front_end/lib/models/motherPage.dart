@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:insta_front_end/screens/chatListScreen.dart';
+import 'package:insta_front_end/screens/profileScreen.dart';
 import 'package:insta_front_end/screens/searchScreen.dart';
 import 'package:provider/provider.dart';
 import '../provider/data.dart';
@@ -16,7 +17,10 @@ class _homePageState extends State<homePage> {
   int _currentIndex = 0;
   List<Widget> pages=[
     homeScreen(),
-    searchScreen()
+    searchScreen(),
+    ProfileScreen(),
+    ProfileScreen(),
+    ProfileScreen()
   ];
 
   void _onItemTapped(int index) {
