@@ -31,7 +31,7 @@ class _individualErrorScreenState extends State<individualErrorScreen> {
           child: Container(
             color: Colors.lightBlue,
             width: double.infinity,
-            padding: EdgeInsets.all(20),
+            padding: EdgeInsets.only(left: 30,right: 30),
             child: (insertMessage.isNotEmpty)?SingleChildScrollView(
               child: Column(
                 //crossAxisAlignment:  (currentUser['username']==insertMessage[3]['sender'])? CrossAxisAlignment.end:CrossAxisAlignment.start,

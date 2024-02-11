@@ -73,6 +73,8 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
                     child: Container(
                       padding: EdgeInsets.only(left: 30,right: 30),
                       child: ListView.builder(
+                        //physics: NeverScrollableScrollPhysics(),
+                        //controller: ScrollController(), // Create
                         itemCount: messages.length,
                         controller: _scrollController,
                         itemBuilder: (BuildContext context, int index) {
@@ -104,13 +106,8 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
                     children: [
                       IconButton(onPressed: (){}, icon: Icon(Icons.camera_alt_outlined,size: 40,)),
                       Container(
-                        //height: 50,
                         width: 400,
-
-                       // margin: EdgeInsets.only(left: 15,right: 15,bottom: 10),
-                       // padding: EdgeInsets.symmetric(horizontal: 8),
                         decoration: BoxDecoration(
-                         // color: Colors.blueGrey,
                           borderRadius: BorderRadius.circular(8),
                         ),
                         child: Stack(

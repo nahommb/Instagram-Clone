@@ -81,12 +81,7 @@ class data with ChangeNotifier{
     http.Response gt = await http.get(url);
     // print(gt.body.length);
      print(gt.body);
-    // for(int i=0;i<jsonDecode(gt.body).length;i++){
-    //   _findedUser.add(jsonDecode(gt.body)[i]);
-    // }
-    // // print(allUSers[0]['username']);
-    // _findedUser.removeWhere((element) => element['username']==currentUser['username']);
-
+     _findedUser.add(jsonDecode(gt.body));
     notifyListeners();
   }
 
@@ -94,6 +89,10 @@ class data with ChangeNotifier{
 
   void clearUsers(){
     _allUsers.clear();
+    notifyListeners();
+  }
+  void clearSearch(){
+    _findedUser.clear();
     notifyListeners();
   }
  List<UserData> users  = [
