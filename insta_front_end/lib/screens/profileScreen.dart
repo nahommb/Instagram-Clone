@@ -13,7 +13,8 @@ class ProfileScreen extends StatelessWidget {
   Widget build(BuildContext context) {
 
     final userData = Provider.of<data>(context);
-    userData.follows(userData.currentUser['username']);
+    userData.followingAndFollowers(userData.currentUser['username']);
+    //userData.followed(userData.currentUser['username']);
     //userData.followsList.clear();
     return Scaffold(
       backgroundColor: Colors.black,
@@ -33,8 +34,8 @@ class ProfileScreen extends StatelessWidget {
                  Column(
                    mainAxisAlignment: MainAxisAlignment.start,
                    children: [
-                     Text("User name"),
-                     Text("Nahom")
+                    // Text("User name"),
+                     Text("${userData.currentUser['username']}",style: TextStyle(fontSize: 20),)
                    ],
                  ),
                 SizedBox(width: 10,),
@@ -50,7 +51,7 @@ class ProfileScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text("Following"),
-                    Text("490")
+                    Text("${userData.following}")
                   ],
                 ),
               ],
