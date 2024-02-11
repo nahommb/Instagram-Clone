@@ -26,6 +26,7 @@ class _homePageState extends State<homePage> {
   void _onItemTapped(int index) {
     setState(() {
       _currentIndex = index;
+
     });
   }
 
@@ -33,6 +34,7 @@ class _homePageState extends State<homePage> {
   Widget build(BuildContext context) {
     final getUser = Provider.of<data>(context).getUser;
     final clearUser = Provider.of<data>(context).clearUsers;
+
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(title: Text('Instagram',style: TextStyle(fontFamily: 'LobsterTwo-Regular',fontSize: 30),),

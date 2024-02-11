@@ -1,12 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:insta_front_end/screens/login.dart';
+import 'package:provider/provider.dart';
+
+import '../provider/data.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
   static String routName ='profile_screen';
 
+
   @override
   Widget build(BuildContext context) {
+
+    final userData = Provider.of<data>(context);
+    userData.follows(userData.currentUser['username']);
+    //userData.followsList.clear();
     return Scaffold(
       backgroundColor: Colors.black,
       body: Column(
@@ -34,7 +42,7 @@ class ProfileScreen extends StatelessWidget {
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
                     Text("Followers"),
-                    Text("2303")
+                    Text("${userData.followers}")
                   ],
                 ),
                 SizedBox(width: 10,),

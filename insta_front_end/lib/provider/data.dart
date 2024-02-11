@@ -24,6 +24,12 @@ class data with ChangeNotifier{
     return [..._findedUser];
   }
 
+  List<dynamic> _followsList =[];
+  List<dynamic> get followsList{
+
+    return [..._followsList];
+  }
+
   Future<bool> login(String username , String password) async{
     var url = Uri.parse('http://localhost:3000/user/login');
     // http.Response rs = await http.get(url);
@@ -85,7 +91,27 @@ class data with ChangeNotifier{
     notifyListeners();
   }
 
+  Future<void> followUSer(String username,String follows) async{
 
+    var url = Uri.parse('http://localhost:3000/user/follow/');
+    http.Response pt = await http.post(url,body: {
+     'username':username,
+      'follows':follows
+    });
+    print(follows);
+    //print(pt.body.length);
+    notifyListeners();
+  }
+   var followers = 0;
+
+  Future<void> follows(String username) async {
+    var url = Uri.parse('http://localhost:3000/user/follows/$username');
+    http.Response response = await http.get(url);
+    List<dynamic> responseData = jsonDecode(response.body);
+    followers = responseData.length;
+
+    notifyListeners();
+  }
 
   void clearUsers(){
     _allUsers.clear();

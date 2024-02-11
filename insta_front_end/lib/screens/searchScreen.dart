@@ -10,7 +10,7 @@ class searchScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final searchUser = Provider.of<data>(context);
+    final userData = Provider.of<data>(context);
     return Column(
       children: [
         Row(
@@ -25,8 +25,8 @@ class searchScreen extends StatelessWidget {
             TextButton(
                 onPressed: (){
               if(nameOfUser!=null){
-                searchUser.clearSearch();
-                searchUser.searchUser(nameOfUser);
+                userData.clearSearch();
+                userData.searchUser(nameOfUser);
                 nameOfUser = null;
               }
 
@@ -51,7 +51,9 @@ class searchScreen extends StatelessWidget {
                   ),
                   title: Text('${data.findedUser[0]['username']}'),
                   subtitle: Text('abelians'),
-                  trailing: ElevatedButton(onPressed: (){},child: Text("Follow"),),)
+                  trailing: ElevatedButton(onPressed: (){
+                    userData.followUSer(userData.currentUser['username'], data.findedUser[0]['username']);
+                  },child: Text("Follow"),),)
 
               ):Center(child: Text("user named $unfoundedUser is not found"),);
             },

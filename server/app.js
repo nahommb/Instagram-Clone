@@ -17,8 +17,14 @@ const messageSchema= mongoose.Schema({
     message:String
 })
 
+const followSchema = mongoose.Schema({
+    username:String,
+    follows:String
+})
+
 const User = mongoose.model('user',dataSchema);
 const Message = mongoose.model('message',messageSchema);
+const Follow = mongoose.model('follow',followSchema);
 
 app.get('/user', function(req, res) {
     User.find({}).exec().then((data) => {
@@ -114,8 +120,40 @@ app.get('/user/search/:username',function(req,res){
     
   }).catch();
 })  
+ app.post('/user/follow',function(req,res){
+    const follow = Follow({
+        username:req.body.username,
+        follows:req.body.follows
+    })
+
+   // console.log(req.body.follows)
+   Follow.findOne({username:req.body.username,follows:req.body.follows}).exec().then((data)=>{
+       if(!data){
+        follow.save();
+       }
+      else{
+        console.log('already followed ')
+      }
+   })
+
+ })
  
- 
+app.get('/user/follows/:username',function(req,res){
+    Follow.find({username:req.params.username}).exec().then((data)=>{
+        if(data){
+            res.send(data);
+        }
+    }).catch();
+})
+
+app.get('/user/followed/:username',function(req,res){
+    Follow.find({follows:req.params.username}).exec().then((data)=>{
+        if(data){
+            res.send(data);
+        }
+    }).catch();
+})
+
 app.listen(3000,function(){
     console.log('server started');
 })
