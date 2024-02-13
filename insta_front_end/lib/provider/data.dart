@@ -95,17 +95,23 @@ class data with ChangeNotifier{
      'username':username,
       'follows':follows
     });
-    print(follows);
+   // print(follows);
     //print(pt.body.length);
     notifyListeners();
   }
    var following = 0;
    var followers = 0;
+  // List notFollowing = [];
   Future<void> followingAndFollowers(String username) async {
     var url = Uri.parse('http://localhost:3000/user/follows/$username');
     http.Response response = await http.get(url);
     List<dynamic> responseData = jsonDecode(response.body);
+
+  //  notFollowing = allUSers.co responseData;
+
+    print(responseData);
     following = responseData.length;
+
 
     var urll = Uri.parse('http://localhost:3000/user/followed/$username');
     http.Response followersResponse = await http.get(urll);
@@ -114,15 +120,22 @@ class data with ChangeNotifier{
     notifyListeners();
   }
 
-  // Future<void> followed(String username) async {
-  //
-  //
-  //   notifyListeners();
-  // }
+  Future<void> followingList(String username) async {
+    var url = Uri.parse('http://localhost:3000/user/follows/$username');
+    http.Response response = await http.get(url);
+    for(int i=0;i<jsonDecode(response.body).length;i++){
+      _followsList.add(jsonDecode(response.body)[i]);
+    }
+    notifyListeners();
+  }
 
 
   void clearUsers(){
     _allUsers.clear();
+    notifyListeners();
+  }
+  void clearfollowUsers(){
+    _followsList.clear();
     notifyListeners();
   }
   void clearSearch(){

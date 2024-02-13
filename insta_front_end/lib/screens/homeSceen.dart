@@ -13,7 +13,7 @@ class homeScreen extends StatelessWidget {
       children: [
         HeadBar(),
         Divider(),
-        mainBody()
+        Expanded(child: mainBody())
       ],
     );
   }

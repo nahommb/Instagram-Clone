@@ -12,7 +12,7 @@ class ChatListScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final userData = Provider.of<data>(context).allUSers;
+    final userData = Provider.of<data>(context).followsList;
     final currentUser = Provider.of<data>(context).currentUser;
     final clearUser = Provider.of<data>(context).clearUsers;
     final messageHandler =Provider.of<ChatHistory>(context);
@@ -48,31 +48,33 @@ class ChatListScreen extends StatelessWidget {
             // color: Colors.lightBlueAccent,
             child:HeadBar(),
           ),
-          Container(
-            height: media*0.6,
-            margin: EdgeInsets.only(left: 10),
-            padding: EdgeInsets.all(15),
-            child: ListView.builder(
-              itemBuilder: (context,index)=>
-                  ListTile(
-                    onTap: (){
-                      messageHandler.getMessage('${currentUser['username']}',"${userData[index]['username']}");
-                      messageHandler.clearChat();
-                      Navigator.pushNamed(context, IndividualChatScreen.routName,arguments: {'name': userData[index]['username']});
-                      //Navigator.pushNamed(context, YourWidget.routName);
-                      //clearUser();
-                    },
-                    leading: CircleAvatar(
-                     radius: 30,
-                      child: ClipOval(
-                      //  child: Image.network("${userData[index].storyImageUrl}$index/300/300",fit:BoxFit.cover),
+          Expanded(
+            child: Container(
+             // height: media*0.6,
+              margin: EdgeInsets.only(left: 10),
+              padding: EdgeInsets.all(15),
+              child: ListView.builder(
+                itemBuilder: (context,index)=>
+                    ListTile(
+                      onTap: (){
+                        messageHandler.getMessage('${currentUser['username']}',"${userData[index]['username']}");
+                        messageHandler.clearChat();
+                        Navigator.pushNamed(context, IndividualChatScreen.routName,arguments: {'name': userData[index]['follows']});
+                        //Navigator.pushNamed(context, YourWidget.routName);
+                        //clearUser();
+                      },
+                      leading: CircleAvatar(
+                       radius: 30,
+                        child: ClipOval(
+                        //  child: Image.network("${userData[index].storyImageUrl}$index/300/300",fit:BoxFit.cover),
+                        ),
                       ),
+                      title: Text('${userData[index]['follows']}'),
+                      subtitle: Text('active now'),
+                      trailing: Icon(Icons.camera_alt_outlined),
                     ),
-                    title: Text('${userData[index]['username']}'),
-                    subtitle: Text('active now'),
-                    trailing: Icon(Icons.camera_alt_outlined),
-                  ),
-              itemCount: userData.length,),
+                itemCount: userData.length,),
+            ),
           )
         ],
       ),

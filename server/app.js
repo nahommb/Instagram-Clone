@@ -153,6 +153,13 @@ app.get('/user/followed/:username',function(req,res){
         }
     }).catch();
 })
+app.get('/user/followsuggetion/:username',function(req,res){
+      Follow.find({},{username:req.params.username}).exec().then((data)=>{
+        if(data){
+            res.send(data);
+        }
+    }).catch();
+})
 
 app.listen(3000,function(){
     console.log('server started');
