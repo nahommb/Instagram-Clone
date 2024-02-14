@@ -28,7 +28,7 @@ class _LoginState extends State<Login> {
   @override
   Widget build(BuildContext context) {
     final userData = Provider.of<data>(context).login;
-   final getUser = Provider.of<data>(context).getUser;
+   final getFollowData = Provider.of<data>(context);
     final clear = Provider.of<data>(context).clearUsers;
 
 
@@ -122,7 +122,8 @@ class _LoginState extends State<Login> {
                           onPressed: () async{
                             if(await userData(username,password)){
                               print("logged in");
-                              getUser();
+                              getFollowData.clearfollowUsers();
+                              getFollowData.followingList(username);
                               Navigator.pushReplacementNamed(context, homePage.routName);
                               clear();
                             }

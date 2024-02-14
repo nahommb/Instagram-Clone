@@ -106,17 +106,16 @@ class data with ChangeNotifier{
     var url = Uri.parse('http://localhost:3000/user/follows/$username');
     http.Response response = await http.get(url);
     List<dynamic> responseData = jsonDecode(response.body);
-
-  //  notFollowing = allUSers.co responseData;
-
-    print(responseData);
+    
+   // print(responseData);
     following = responseData.length;
-
+    // notifyListeners();
 
     var urll = Uri.parse('http://localhost:3000/user/followed/$username');
     http.Response followersResponse = await http.get(urll);
     List<dynamic> followersResponseData = jsonDecode(followersResponse.body);
     followers = followersResponseData.length;
+    //print(followersResponseData);
     notifyListeners();
   }
 

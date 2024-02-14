@@ -35,6 +35,7 @@ class _homePageState extends State<homePage> {
     final getUser = Provider.of<data>(context).getUser;
     final clearUser = Provider.of<data>(context).clearUsers;
     final userData = Provider.of<data>(context);
+    //userData.followingAndFollowers(userData.currentUser['username']);
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(title: Text('Instagram',style: TextStyle(fontFamily: 'LobsterTwo-Regular',fontSize: 30),),
