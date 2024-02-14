@@ -18,6 +18,7 @@ class data with ChangeNotifier{
 
     return [..._allUsers];
   }
+  List nonFollowers =[];
 
   List<dynamic>_findedUser =[];
   List<dynamic> get findedUser{
@@ -106,9 +107,14 @@ class data with ChangeNotifier{
     var url = Uri.parse('http://localhost:3000/user/follows/$username');
     http.Response response = await http.get(url);
     List<dynamic> responseData = jsonDecode(response.body);
-    
+
    // print(responseData);
     following = responseData.length;
+    for(int i = 0;i<responseData.length;i++ ){
+    _allUsers.removeWhere((element) => element['username'] == responseData[i]['follows']);
+    }
+    nonFollowers = _allUsers;
+   // print(_allUsers);
     // notifyListeners();
 
     var urll = Uri.parse('http://localhost:3000/user/followed/$username');
@@ -127,6 +133,7 @@ class data with ChangeNotifier{
     }
     notifyListeners();
   }
+
 
 
   void clearUsers(){

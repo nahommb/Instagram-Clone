@@ -122,6 +122,7 @@ class _LoginState extends State<Login> {
                           onPressed: () async{
                             if(await userData(username,password)){
                               print("logged in");
+                              getFollowData.getUser();
                               getFollowData.clearfollowUsers();
                               getFollowData.followingList(username);
                               Navigator.pushReplacementNamed(context, homePage.routName);

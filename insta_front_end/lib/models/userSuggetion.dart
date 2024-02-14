@@ -8,7 +8,7 @@ class userSuggetion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final allUsers = Provider.of<data>(context).allUSers;
+    final allUsers = Provider.of<data>(context).nonFollowers;
     return Container(
      child: ListView.builder(
        itemBuilder: (context,index)=>
