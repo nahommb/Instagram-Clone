@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/userSuggetion.dart';
+import '../models/userSuggestion.dart';
 import '../provider/data.dart';
 
 class searchScreen extends StatefulWidget {
@@ -18,6 +18,7 @@ class _searchScreenState extends State<searchScreen> {
   @override
   Widget build(BuildContext context) {
     final userData = Provider.of<data>(context);
+    userData.followingAndFollowers(userData.currentUser['username']);
     return Column(
       children: [
         Row(
@@ -32,7 +33,7 @@ class _searchScreenState extends State<searchScreen> {
             ),width: 350,),
             TextButton(
                 onPressed: (){
-              if(nameOfUser!=null && nameOfUser != userData.currentUser['username']){
+              if(nameOfUser!=null && nameOfUser!='' && nameOfUser != userData.currentUser['username']){
                 userData.clearSearch();
                 userData.searchUser(nameOfUser);
                 nameOfUser = null;
@@ -53,7 +54,8 @@ class _searchScreenState extends State<searchScreen> {
             padding: EdgeInsets.all(10),
             child: Consumer<data>(
               builder: (context,data,child){
-                return data.findedUser.length>0? ListView.builder(
+                return data.findedUser.length>0? (data.findedUser[0]['response']=='nothing'?Center(child: Text('leeee'),):
+                ListView.builder(
                     itemCount: data.findedUser.length,
                     itemBuilder: (context,index)=>
                   ListTile(
@@ -67,7 +69,7 @@ class _searchScreenState extends State<searchScreen> {
                       userData.followUSer(userData.currentUser['username'], data.findedUser[0]['username']);
                     },child: Text("Follow"),),)
 
-                 ):userSuggetion();
+                 )):userSuggestion();
               },
             )
           ),
