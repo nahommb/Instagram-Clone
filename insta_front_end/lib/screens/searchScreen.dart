@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insta_front_end/models/randomPosts.dart';
 import 'package:provider/provider.dart';
 
 import '../models/userSuggestion.dart';
@@ -54,7 +55,7 @@ class _searchScreenState extends State<searchScreen> {
             padding: EdgeInsets.all(10),
             child: Consumer<data>(
               builder: (context,data,child){
-                return data.findedUser.length>0? (data.findedUser[0]['response']=='nothing'?Center(child: Text('leeee'),):
+                return data.findedUser.length>0? (data.findedUser[0]['response']=='nothing'?userSuggestion():
                 ListView.builder(
                     itemCount: data.findedUser.length,
                     itemBuilder: (context,index)=>
@@ -69,7 +70,7 @@ class _searchScreenState extends State<searchScreen> {
                       userData.followUSer(userData.currentUser['username'], data.findedUser[0]['username']);
                     },child: Text("Follow"),),)
 
-                 )):userSuggestion();
+                 )):RandomPosts();
               },
             )
           ),

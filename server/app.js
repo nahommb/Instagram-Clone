@@ -114,6 +114,11 @@ app.get('/user/search/:username',function(req,res){
        
       }
     else{
+        res.json(
+            {
+            'response':"nothing"
+        }
+        )
         console.log("user does not exist");
     }
     

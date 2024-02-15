@@ -9,6 +9,7 @@ class userSuggestion extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final allUsers = Provider.of<data>(context).nonFollowers;
+    final userData = Provider.of<data>(context);
     return Column(
       children: [
         Center(child: Text("User not found"),),

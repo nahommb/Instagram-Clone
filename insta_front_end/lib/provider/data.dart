@@ -20,11 +20,7 @@ class data with ChangeNotifier{
   }
   List nonFollowers =[];
 
-  List<dynamic>_findedUser =[
-    {
-      'response':'nothing'
-    }
-  ];
+  List<dynamic>_findedUser =[];
   List<dynamic> get findedUser{
     return [..._findedUser];
   }
@@ -88,7 +84,7 @@ class data with ChangeNotifier{
     var url = Uri.parse('http://localhost:3000/user/search/$username');
     http.Response gt = await http.get(url);
     // print(gt.body.length);
-     print(gt.body);
+    // print(gt.body);
      _findedUser.add(jsonDecode(gt.body));
     notifyListeners();
   }
