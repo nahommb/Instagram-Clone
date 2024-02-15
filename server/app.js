@@ -161,6 +161,10 @@ app.get('/user/followed/:username',function(req,res){
 app.get('/user/followsuggetion/:username',function(req,res){
       Follow.find({},{username:req.params.username}).exec().then((data)=>{
         if(data){
+
+
+           var random = Math.floor(Math.random()*10);  
+           console.log(random);          
             res.send(data);
         }
     }).catch();
