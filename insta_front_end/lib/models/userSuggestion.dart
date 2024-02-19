@@ -8,8 +8,10 @@ class userSuggestion extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final allUsers = Provider.of<data>(context).nonFollowers;
     final userData = Provider.of<data>(context);
+    // userData.followSuggestion(userData.currentUser['username']);
+    final allUsers = Provider.of<data>(context).nonFollowers;
+
     return GestureDetector(
       onTap: (){
         userData.clearSearch();
@@ -22,6 +24,7 @@ class userSuggestion extends StatelessWidget {
             Center(
                 child: TextButton(
                   onPressed: () {
+                    userData.followSuggestion(userData.currentUser['username']);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
@@ -51,6 +54,7 @@ class userSuggestion extends StatelessWidget {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
+                                userData.clearSuggestion();
                               },
                               child: Text('Close'),
                             ),

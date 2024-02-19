@@ -158,7 +158,7 @@ app.get('/user/followed/:username',function(req,res){
         }
     }).catch();
 })
-app.get('/user/followsuggetion/:username',function(req,res){
+app.get('/user/followsuggestion/:username',function(req,res){
     //   User.aggregate([{ $sample: { size: 2 } }]).exec().then((data)=>{
         var follwingData = [req.params.username];
        

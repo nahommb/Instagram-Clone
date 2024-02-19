@@ -113,7 +113,8 @@ class data with ChangeNotifier{
     for(int i = 0;i<responseData.length;i++ ){
     _allUsers.removeWhere((element) => element['username'] == responseData[i]['follows']);
     }
-    nonFollowers = _allUsers;
+   // nonFollowers = _allUsers;
+
     // print(_allUsers);
     // print(nonFollowers);
     // notifyListeners();
@@ -135,6 +136,15 @@ class data with ChangeNotifier{
     notifyListeners();
   }
 
+  Future<void> followSuggestion(String username) async {
+    var url = Uri.parse('http://localhost:3000/user/followsuggestion/$username');
+    http.Response response = await http.get(url);
+    for(int i=0;i<jsonDecode(response.body).length;i++){
+      nonFollowers.add(jsonDecode(response.body)[i]);
+    }
+     print(nonFollowers);
+    notifyListeners();
+  }
 
 
   void clearUsers(){
@@ -147,6 +157,10 @@ class data with ChangeNotifier{
   }
   void clearSearch(){
     _findedUser.clear();
+    notifyListeners();
+  }
+  void clearSuggestion(){
+    nonFollowers.clear();
     notifyListeners();
   }
  List<UserData> users  = [

@@ -37,6 +37,7 @@ class _searchScreenState extends State<searchScreen> {
               if(nameOfUser!=null && nameOfUser!='' && nameOfUser != userData.currentUser['username']){
                 userData.clearSearch();
                 userData.searchUser(nameOfUser);
+                userData.followSuggestion('saron');
                 nameOfUser = null;
               }
               setState(() {
