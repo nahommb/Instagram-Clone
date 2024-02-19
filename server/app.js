@@ -159,19 +159,24 @@ app.get('/user/followed/:username',function(req,res){
     }).catch();
 })
 app.get('/user/followsuggetion/:username',function(req,res){
-      User.aggregate([{ $sample: { size: 2 } }]).exec().then((data)=>{
-        var follwingData = [];
+    //   User.aggregate([{ $sample: { size: 2 } }]).exec().then((data)=>{
+        var follwingData = [req.params.username];
        
-        if(data){
             Follow.find({username:req.params.username}).exec().then((followingdata)=>{
                 followingdata.forEach(element => {
+                    // console.log(element['follows'])
                     follwingData.push(element['follows'])
                 });
                 if(followingdata){
                    User.aggregate([
                     { $match:{username:{$nin:follwingData}}},
-                    {$sample:{size:2}}
-                   ])
+                    {$sample:{size:5}}
+                   ]).exec().then((data)=>{
+                    if(data){
+                        res.send(data)
+                    }
+                    
+                   })
                 }
             }).catch();
 
@@ -194,9 +199,9 @@ app.get('/user/followsuggetion/:username',function(req,res){
                
             // }
 
-            res.send(data);
-        }
-    }).catch();
+            // res.send(data);
+        // }
+    // }).catch();
 })
 
 // app.get('/user/notfollowing/:username',function(req,res){
