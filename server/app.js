@@ -159,12 +159,56 @@ app.get('/user/followed/:username',function(req,res){
     }).catch();
 })
 app.get('/user/followsuggetion/:username',function(req,res){
-      Follow.find({},{username:req.params.username}).exec().then((data)=>{
+      User.aggregate([{ $sample: { size: 2 } }]).exec().then((data)=>{
+        var follwingData = [];
+       
         if(data){
+            Follow.find({username:req.params.username}).exec().then((followingdata)=>{
+                followingdata.forEach(element => {
+                    follwingData.push(element['follows'])
+                });
+                if(followingdata){
+                   User.aggregate([
+                    { $match:{username:{$nin:follwingData}}},
+                    {$sample:{size:2}}
+                   ])
+                }
+            }).catch();
+
+            // for(var i=0; i<data.length;i++){
+                // data.forEach(users => { 
+                //     var notFollowing=[];
+                //     follwingData.forEach(followingusers => {
+                //          console.log(users['username'])
+                //          console.log(followingusers['username'])
+
+                //        if(users['username']===followingusers['follows']){
+                //             notFollowing.push(users);
+                           
+                            
+
+                //        }
+                //     })
+                // //    console.log (notFollowing);
+                // }); 
+               
+            // }
+
             res.send(data);
         }
     }).catch();
 })
+
+// app.get('/user/notfollowing/:username',function(req,res){
+//     User.find({}).exec().then((data)=>{
+//         if(data){
+            
+//             for(var i=0;i<data.length;i++){
+
+//             }
+//         }
+//     })
+// })
 
 app.listen(3000,function(){
     console.log('server started');
