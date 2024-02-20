@@ -18,7 +18,14 @@ class data with ChangeNotifier{
 
     return [..._allUsers];
   }
-  List nonFollowers =[];
+  // List nonFollowers =[];
+
+
+  List<dynamic> _nonFollowers =[];
+  List<dynamic> get nonFollowers{
+
+    return [..._nonFollowers];
+  }
 
   List<dynamic>_findedUser =[];
   List<dynamic> get findedUser{
@@ -140,9 +147,9 @@ class data with ChangeNotifier{
     var url = Uri.parse('http://localhost:3000/user/followsuggestion/$username');
     http.Response response = await http.get(url);
     for(int i=0;i<jsonDecode(response.body).length;i++){
-      nonFollowers.add(jsonDecode(response.body)[i]);
+      _nonFollowers.add(jsonDecode(response.body)[i]);
     }
-     print(nonFollowers);
+     print('messiii  $nonFollowers');
     notifyListeners();
   }
 
@@ -160,7 +167,7 @@ class data with ChangeNotifier{
     notifyListeners();
   }
   void clearSuggestion(){
-    nonFollowers.clear();
+    _nonFollowers.clear();
     notifyListeners();
   }
  List<UserData> users  = [

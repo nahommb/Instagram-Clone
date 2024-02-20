@@ -15,7 +15,7 @@ class _searchScreenState extends State<searchScreen> {
   var nameOfUser;
 
   var unfoundedUser;
-
+   final searchController = TextEditingController();
   @override
   Widget build(BuildContext context) {
     final userData = Provider.of<data>(context);
@@ -27,6 +27,7 @@ class _searchScreenState extends State<searchScreen> {
           children: [
             SizedBox(
               child: SearchBar(
+                controller: searchController,
               onChanged: (value){
                 nameOfUser =value;
                 unfoundedUser = value;
@@ -40,6 +41,7 @@ class _searchScreenState extends State<searchScreen> {
                 userData.followSuggestion('saron');
                 nameOfUser = null;
               }
+              searchController.clear();
               setState(() {
 
               });

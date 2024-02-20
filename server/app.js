@@ -159,61 +159,29 @@ app.get('/user/followed/:username',function(req,res){
     }).catch();
 })
 app.get('/user/followsuggestion/:username',function(req,res){
-    //   User.aggregate([{ $sample: { size: 2 } }]).exec().then((data)=>{
+   
         var follwingData = [req.params.username];
        
             Follow.find({username:req.params.username}).exec().then((followingdata)=>{
                 followingdata.forEach(element => {
-                    // console.log(element['follows'])
+                   
                     follwingData.push(element['follows'])
                 });
                 if(followingdata){
                    User.aggregate([
                     { $match:{username:{$nin:follwingData}}},
-                    {$sample:{size:5}}
+                    {$sample:{size:5},},
+                    {$project:{password:0}}
                    ]).exec().then((data)=>{
                     if(data){
                         res.send(data)
-                    }
-                    
+                    }    
                    })
                 }
-            }).catch();
-
-            // for(var i=0; i<data.length;i++){
-                // data.forEach(users => { 
-                //     var notFollowing=[];
-                //     follwingData.forEach(followingusers => {
-                //          console.log(users['username'])
-                //          console.log(followingusers['username'])
-
-                //        if(users['username']===followingusers['follows']){
-                //             notFollowing.push(users);
-                           
-                            
-
-                //        }
-                //     })
-                // //    console.log (notFollowing);
-                // }); 
-               
-            // }
-
-            // res.send(data);
-        // }
-    // }).catch();
+            }).catch((error)=>{
+                res.status(500).send('internal server error');
+            })
 })
-
-// app.get('/user/notfollowing/:username',function(req,res){
-//     User.find({}).exec().then((data)=>{
-//         if(data){
-            
-//             for(var i=0;i<data.length;i++){
-
-//             }
-//         }
-//     })
-// })
 
 app.listen(3000,function(){
     console.log('server started');

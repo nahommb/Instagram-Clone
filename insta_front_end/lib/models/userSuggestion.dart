@@ -10,11 +10,12 @@ class userSuggestion extends StatelessWidget {
   Widget build(BuildContext context) {
     final userData = Provider.of<data>(context);
     // userData.followSuggestion(userData.currentUser['username']);
-    final allUsers = Provider.of<data>(context).nonFollowers;
+    final notFollowingUsers = Provider.of<data>(context).nonFollowers;
 
     return GestureDetector(
       onTap: (){
         userData.clearSearch();
+        userData.clearSuggestion();
       },
       child: Container(
         color: Colors.blueGrey,
@@ -24,10 +25,12 @@ class userSuggestion extends StatelessWidget {
             Center(
                 child: TextButton(
                   onPressed: () {
+                    userData.clearSuggestion();
                     userData.followSuggestion(userData.currentUser['username']);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {
+                        // userData.followSuggestion(userData.currentUser['username']);
                         return AlertDialog(
                           title: Text('User Suggestions'),
                           content: SizedBox(
@@ -38,7 +41,7 @@ class userSuggestion extends StatelessWidget {
                                 leading: CircleAvatar(
                                   backgroundColor: Colors.white,
                                 ),
-                                title: Text('${allUsers[index]['username']}'),
+                                title: Text('${notFollowingUsers[index]['username']}'),
                                 subtitle: Text('leeeiopia'),
                                 trailing: ElevatedButton(
                                   onPressed: () {
@@ -47,14 +50,14 @@ class userSuggestion extends StatelessWidget {
                                   child: Text('Follow'),
                                 ),
                               ),
-                              itemCount: allUsers.length,
+                              itemCount: notFollowingUsers.length,
                             ),
                           ),
                           actions: [
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                userData.clearSuggestion();
+                                // userData.clearSuggestion();
                               },
                               child: Text('Close'),
                             ),
