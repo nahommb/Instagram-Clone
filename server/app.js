@@ -2,6 +2,7 @@ const ex = require('express');
 const app = ex();
 const mongoose = require('mongoose');
 const bdy = require('body-parser');
+const multer = require('multer')
 
 app.use(bdy.urlencoded({extended:true}));
 
@@ -22,9 +23,33 @@ const followSchema = mongoose.Schema({
     follows:String
 })
 
+const postSchema = mongoose.Schema({
+    name:{
+        type:String,
+         
+    },
+    image:{
+        data:Buffer,
+        contentType:String
+    }
+})
+
 const User = mongoose.model('user',dataSchema);
 const Message = mongoose.model('message',messageSchema);
 const Follow = mongoose.model('follow',followSchema);
+const postModel = mongoose.model('posts',postSchema)
+
+
+const Storage = multer.diskStorage({
+    destination:'posts',
+    filename:(req,file,cb)=>{
+        cb(null,file.originalname)
+    }
+});
+const upload = multer({
+    storage:Storage
+}).single('post')
+
 
 app.get('/user', function(req, res) {
     User.find({}).exec().then((data) => {
@@ -181,6 +206,31 @@ app.get('/user/followsuggestion/:username',function(req,res){
             }).catch((error)=>{
                 res.status(500).send('internal server error');
             })
+})
+
+app.post('/user/post',function(req,res){
+   upload(req,res,(err)=>{
+    if(err){
+        console.log(err)
+    }
+    else{
+        const newPost = postModel({
+            name:req.body.name,
+            image:{
+                data:req.file.fieldname,
+                contentType:'image/png'
+            }
+        })
+        newPost.save().then(()=>res.send('successfully uploaded'))
+        .catch((err)=>console.log(err))
+    }
+   })
+})
+
+app.get('/user/post',async (req,res)=>{
+    postModel.find({}).exec().then((data)=>{
+        res.json(data);
+    })
 })
 
 app.listen(3000,function(){
