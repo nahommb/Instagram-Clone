@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:insta_front_end/screens/chatListScreen.dart';
 import 'package:insta_front_end/screens/profileScreen.dart';
+import 'package:insta_front_end/screens/reelsScreen.dart';
 import 'package:insta_front_end/screens/searchScreen.dart';
 import 'package:provider/provider.dart';
 import '../provider/data.dart';
@@ -20,7 +21,7 @@ class _homePageState extends State<homePage> {
     homeScreen(),
     searchScreen(),
     AddPostScreen(),
-    ProfileScreen(),
+    ReelsScreen(),
     ProfileScreen()
   ];
 
