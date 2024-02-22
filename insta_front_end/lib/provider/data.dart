@@ -7,6 +7,10 @@ import 'package:provider/provider.dart';
 
 class data with ChangeNotifier{
 
+  final serverIpAddress = '10.144.37.98';
+  var following = 0;
+  var followers = 0;
+
   Map<String,dynamic> _currentUser = {};
   Map<String,dynamic> get currentUser {
     return {..._currentUser};
@@ -39,7 +43,8 @@ class data with ChangeNotifier{
   }
 
   Future<bool> login(String username , String password) async{
-    var url = Uri.parse('http://localhost:3000/user/login');
+
+    var url = Uri.parse('http://$serverIpAddress:3000/user/login');
     // http.Response rs = await http.get(url);
     // print('leee${rs.statusCode}');
 
@@ -59,6 +64,8 @@ class data with ChangeNotifier{
     }
   }
   Future<bool> signup(String username , String password) async{
+
+
     var url = Uri.parse('http://localhost:3000/user/signup');
     http.Response ps = await http.post(url,body: {'username':username,'password':password});
     print(ps.body.length);
@@ -76,79 +83,112 @@ class data with ChangeNotifier{
 
   Future<void> getUser() async{
 
-    var url = Uri.parse('http://localhost:3000/user');
-    http.Response gt = await http.get(url);
-    for(int i=0;i<jsonDecode(gt.body).length;i++){
-      _allUsers.add(jsonDecode(gt.body)[i]);
+    try{
+      var url = Uri.parse('http://localhost:3000/user');
+      http.Response gt = await http.get(url);
+      for(int i=0;i<jsonDecode(gt.body).length;i++){
+        _allUsers.add(jsonDecode(gt.body)[i]);
+      }
+      _allUsers.removeWhere((element) => element['username']==currentUser['username']);
     }
-    _allUsers.removeWhere((element) => element['username']==currentUser['username']);
+    catch(err){
+   //  print(err);
+    }
 
     notifyListeners();
   }
 
   Future<void> searchUser(String username) async{
 
-    var url = Uri.parse('http://localhost:3000/user/search/$username');
-    http.Response gt = await http.get(url);
-    // print(gt.body.length);
-    // print(gt.body);
-     _findedUser.add(jsonDecode(gt.body));
+    try{
+      var url = Uri.parse('http://localhost:3000/user/search/$username');
+      http.Response gt = await http.get(url);
+      // print(gt.body.length);
+      // print(gt.body);
+      _findedUser.add(jsonDecode(gt.body));
+    }
+    catch(err){
+   // print(err);
+    }
+
     notifyListeners();
   }
 
   Future<void> followUSer(String username,String follows) async{
 
-    var url = Uri.parse('http://localhost:3000/user/follow/');
-    http.Response pt = await http.post(url,body: {
-     'username':username,
-      'follows':follows
-    });
-   // print(follows);
-    //print(pt.body.length);
+    try{
+      var url = Uri.parse('http://localhost:3000/user/follow/');
+      http.Response pt = await http.post(url,body: {
+        'username':username,
+        'follows':follows
+      });
+    }
+    catch(err){
+    // print(err);
+    }
     notifyListeners();
   }
-   var following = 0;
-   var followers = 0;
+
   // List notFollowing = [];
   Future<void> followingAndFollowers(String username) async {
-    var url = Uri.parse('http://localhost:3000/user/follows/$username');
-    http.Response response = await http.get(url);
-    List<dynamic> responseData = jsonDecode(response.body);
 
-   // print(responseData);
-    following = responseData.length;
-    for(int i = 0;i<responseData.length;i++ ){
-    _allUsers.removeWhere((element) => element['username'] == responseData[i]['follows']);
+    try{
+      var url = Uri.parse('http://localhost:3000/user/follows/$username');
+      http.Response response = await http.get(url);
+      List<dynamic> responseData = jsonDecode(response.body);
+
+      // print(responseData);
+      following = responseData.length;
+      for(int i = 0;i<responseData.length;i++ ){
+        _allUsers.removeWhere((element) => element['username'] == responseData[i]['follows']);
+      }
+      // nonFollowers = _allUsers;
+
+      // print(_allUsers);
+      // print(nonFollowers);
+      // notifyListeners();
+
+      var urll = Uri.parse('http://localhost:3000/user/followed/$username');
+      http.Response followersResponse = await http.get(urll);
+      List<dynamic> followersResponseData = jsonDecode(followersResponse.body);
+      followers = followersResponseData.length;
     }
-   // nonFollowers = _allUsers;
+    catch(err){
+    //  print('error lee $err');
+    }
 
-    // print(_allUsers);
-    // print(nonFollowers);
-    // notifyListeners();
 
-    var urll = Uri.parse('http://localhost:3000/user/followed/$username');
-    http.Response followersResponse = await http.get(urll);
-    List<dynamic> followersResponseData = jsonDecode(followersResponse.body);
-    followers = followersResponseData.length;
     //print(followersResponseData);
     notifyListeners();
   }
 
   Future<void> followingList(String username) async {
-    var url = Uri.parse('http://localhost:3000/user/follows/$username');
-    http.Response response = await http.get(url);
-    for(int i=0;i<jsonDecode(response.body).length;i++){
-      _followsList.add(jsonDecode(response.body)[i]);
+    try{
+      var url = Uri.parse('http://localhost:3000/user/follows/$username');
+      http.Response response = await http.get(url);
+      for(int i=0;i<jsonDecode(response.body).length;i++){
+        _followsList.add(jsonDecode(response.body)[i]);
+      }
     }
+    catch(err){
+     // print(err);
+    }
+
     notifyListeners();
   }
 
   Future<void> followSuggestion(String username) async {
-    var url = Uri.parse('http://localhost:3000/user/followsuggestion/$username');
-    http.Response response = await http.get(url);
-    for(int i=0;i<jsonDecode(response.body).length;i++){
-      _nonFollowers.add(jsonDecode(response.body)[i]);
+    try{
+      var url = Uri.parse('http://localhost:3000/user/followsuggestion/$username');
+      http.Response response = await http.get(url);
+      for(int i=0;i<jsonDecode(response.body).length;i++){
+        _nonFollowers.add(jsonDecode(response.body)[i]);
+      }
     }
+    catch(err){
+    //  print(err);
+    }
+
      print('messiii  $nonFollowers');
     notifyListeners();
   }

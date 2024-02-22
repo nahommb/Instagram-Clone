@@ -20,6 +20,8 @@ class _searchScreenState extends State<searchScreen> {
   Widget build(BuildContext context) {
     final userData = Provider.of<data>(context);
     userData.followingAndFollowers(userData.currentUser['username']);
+    double media = MediaQuery.of(context).size.width;
+
     return Column(
       children: [
         Row(
@@ -32,7 +34,7 @@ class _searchScreenState extends State<searchScreen> {
                 nameOfUser =value;
                 unfoundedUser = value;
               },
-            ),width: 350,),
+            ),width: media*0.8,),
             TextButton(
                 onPressed: (){
               if(nameOfUser!=null && nameOfUser!='' && nameOfUser != userData.currentUser['username']){
@@ -41,9 +43,8 @@ class _searchScreenState extends State<searchScreen> {
                 // userData.followSuggestion('saron');
                 nameOfUser = null;
               }
-              searchController.clear();
               setState(() {
-
+                searchController.clear();
               });
 
             }, child: Text("Search"))

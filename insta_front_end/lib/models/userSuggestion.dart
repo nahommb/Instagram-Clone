@@ -10,22 +10,21 @@ class userSuggestion extends StatelessWidget {
   Widget build(BuildContext context) {
     final userData = Provider.of<data>(context);
     // userData.followSuggestion(userData.currentUser['username']);
-    final notFollowingUsers = Provider.of<data>(context).nonFollowers;
+    final notFollowingUsers = Provider.of<data>(context,listen: true).nonFollowers;
 
     return GestureDetector(
       onTap: (){
         userData.clearSearch();
-        userData.clearSuggestion();
       },
       child: Container(
-        color: Colors.blueGrey,
+        color: Colors.black,
         child: Column(
           children: [
             Center(child: Text("User not found"),),
             Center(
                 child: TextButton(
-                  onPressed: () {
-                    userData.clearSuggestion();
+                  onPressed: (){
+                     userData.clearSuggestion();
                     userData.followSuggestion(userData.currentUser['username']);
                     showDialog(
                       context: context,
@@ -57,7 +56,7 @@ class userSuggestion extends StatelessWidget {
                             TextButton(
                               onPressed: () {
                                 Navigator.of(context).pop();
-                                // userData.clearSuggestion();
+                                 // userData.clearSuggestion();
                               },
                               child: Text('Close'),
                             ),

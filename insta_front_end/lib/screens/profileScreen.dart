@@ -62,7 +62,12 @@ class ProfileScreen extends StatelessWidget {
               child: Row(
                 children: [
                   ElevatedButton(onPressed: (){}, child: Text("Followers")),
-                  TextButton(onPressed: (){
+                  TextButton(
+                    onPressed: (){
+                    userData.clearSuggestion();
+                    userData.clearSearch();
+                    userData.clearfollowUsers();
+                    userData.clearUsers();
                     Navigator.pushReplacementNamed(context, Login.routName);
                   },child: Text("Log out"),),
                 ],

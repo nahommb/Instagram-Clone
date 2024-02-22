@@ -14,9 +14,9 @@ class ChatListScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final userData = Provider.of<data>(context).followsList;
     final currentUser = Provider.of<data>(context).currentUser;
-    final clearUser = Provider.of<data>(context).clearUsers;
+   // final clearUser = Provider.of<data>(context).clearUsers;
     final messageHandler =Provider.of<ChatHistory>(context);
-    double media = MediaQuery.of(context).size.height;
+    double media = MediaQuery.of(context).size.width;
     return Scaffold(
       backgroundColor: Colors.black,
       appBar: AppBar(
@@ -37,7 +37,7 @@ class ChatListScreen extends StatelessWidget {
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              SizedBox( width:350, child: SearchBar(hintText: "search",)),
+              SizedBox( width:media*0.8, child: SearchBar(hintText: "search",)),
               TextButton(onPressed: (){}, child: Text('Filter'))
             ],
           ),

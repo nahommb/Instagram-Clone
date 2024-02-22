@@ -59,6 +59,7 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
       backgroundColor: Colors.black,
       appBar: AppBar(title: Text("${args['name']}"),backgroundColor: Colors.black,),
       body:StreamBuilder<List<dynamic>>(
+
         stream: getNewMessage(currentUser['username'],args['name']), // Replace with appropriate sender and receiver values
         builder: (BuildContext context, AsyncSnapshot<List<dynamic>> snapshot) {
           if (snapshot.hasData) {
@@ -75,6 +76,7 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
                       child: ListView.builder(
                         //physics: NeverScrollableScrollPhysics(),
                         //controller: ScrollController(), // Create
+
                         itemCount: messages.length,
                         controller: _scrollController,
                         itemBuilder: (BuildContext context, int index) {
