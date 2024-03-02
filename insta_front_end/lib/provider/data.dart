@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class data with ChangeNotifier{
 
-  final serverIpAddress = '10.144.37.98';
+  final serverIpAddress = 'localhost';
   var following = 0;
   var followers = 0;
 
@@ -44,41 +44,50 @@ class data with ChangeNotifier{
 
   Future<bool> login(String username , String password) async{
 
-    var url = Uri.parse('http://$serverIpAddress:3000/user/login');
-    // http.Response rs = await http.get(url);
-    // print('leee${rs.statusCode}');
+    try{
 
-    http.Response ps = await http.post(url,body: {'username':username,'password':password});
-    print(ps.body);
+      final url = Uri.parse('http://$serverIpAddress:3000/user/login');
+      http.Response ps = await http.post(url,body: {'username':username,'password':password});
+      print(ps.body);
 
-    if (ps.body.length > 0) {
-      Map<String, dynamic> responseBody = jsonDecode(ps.body).cast<String, dynamic>();
-      _currentUser = responseBody;
-      print(currentUser['username']);
-      notifyListeners();
-      return true;
+      if (ps.body.length > 0) {
+        Map<String, dynamic> responseBody = jsonDecode(ps.body).cast<String, dynamic>();
+        _currentUser = responseBody;
+        print(currentUser['username']);
+        notifyListeners();
+        return true;
+      }
+      else{
+        notifyListeners();
+        return false;
+      }
     }
-    else{
-      notifyListeners();
+    catch(err){
+      print(err);
       return false;
     }
   }
   Future<bool> signup(String username , String password) async{
 
-
-    var url = Uri.parse('http://localhost:3000/user/signup');
-    http.Response ps = await http.post(url,body: {'username':username,'password':password});
-    print(ps.body.length);
-    print(ps.body);
-    if(ps.body == 'Registerd'){
-      notifyListeners();
-      return true;
+    try{
+      final url = Uri.parse('http://localhost:3000/user/signup');
+      http.Response ps = await http.post(url,body: {'username':username,'password':password});
+      print(ps.body.length);
+      print(ps.body);
+      if(ps.body == 'Registerd'){
+        notifyListeners();
+        return true;
+      }
+      else{
+        notifyListeners();
+        return false;
+      }
     }
-    else{
-      notifyListeners();
+   catch(err){
+      print(err);
       return false;
-    }
-
+   }
+   
   }
 
   Future<void> getUser() async{
