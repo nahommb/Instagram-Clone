@@ -3,8 +3,26 @@ import 'package:provider/provider.dart';
 
 import '../provider/data.dart';
 
-class userSuggestion extends StatelessWidget {
+class userSuggestion extends StatefulWidget {
   const userSuggestion({Key? key}) : super(key: key);
+
+  @override
+  State<userSuggestion> createState() => _userSuggestionState();
+}
+
+class _userSuggestionState extends State<userSuggestion> {
+  bool isInit = true;
+
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    if(isInit){
+     final username = Provider.of<data>(context).currentUser['username'];
+      Provider.of<data>(context).followSuggestion(username);
+    }
+    isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -23,9 +41,9 @@ class userSuggestion extends StatelessWidget {
             Center(child: Text("User not found"),),
             Center(
                 child: TextButton(
-                  onPressed: (){
-                     userData.clearSuggestion();
-                    userData.followSuggestion(userData.currentUser['username']);
+                  onPressed: () async{
+                     // userData.clearSuggestion();
+                    // await userData.followSuggestion(userData.currentUser['username']);
                     showDialog(
                       context: context,
                       builder: (BuildContext context) {

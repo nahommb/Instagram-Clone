@@ -125,7 +125,7 @@ class _LoginState extends State<Login> {
                               getFollowData.getUser();
                               getFollowData.clearfollowUsers();
                               getFollowData.followingList(username);
-                              getFollowData.followSuggestion(username);
+                              // getFollowData.followSuggestion(username);
                               Navigator.pushReplacementNamed(context, homePage.routName);
                               clear();
                             }

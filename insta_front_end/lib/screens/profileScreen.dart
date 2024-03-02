@@ -64,7 +64,7 @@ class ProfileScreen extends StatelessWidget {
                   ElevatedButton(onPressed: (){}, child: Text("Followers")),
                   TextButton(
                     onPressed: (){
-                    userData.clearSuggestion();
+                    // userData.clearSuggestion();
                     userData.clearSearch();
                     userData.clearfollowUsers();
                     userData.clearUsers();

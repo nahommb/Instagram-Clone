@@ -25,11 +25,11 @@ class data with ChangeNotifier{
   // List nonFollowers =[];
 
 
-  List<dynamic> _nonFollowers =[];
-  List<dynamic> get nonFollowers{
-
-    return [..._nonFollowers];
-  }
+  List<dynamic> nonFollowers =[];
+  // List<dynamic> get nonFollowers{
+  //
+  //   return [..._nonFollowers];
+  // }
 
   List<dynamic>_findedUser =[];
   List<dynamic> get findedUser{
@@ -87,7 +87,7 @@ class data with ChangeNotifier{
       print(err);
       return false;
    }
-   
+
   }
 
   Future<void> getUser() async{
@@ -190,8 +190,9 @@ class data with ChangeNotifier{
     try{
       var url = Uri.parse('http://localhost:3000/user/followsuggestion/$username');
       http.Response response = await http.get(url);
+      nonFollowers.clear();
       for(int i=0;i<jsonDecode(response.body).length;i++){
-        _nonFollowers.add(jsonDecode(response.body)[i]);
+        nonFollowers.add(jsonDecode(response.body)[i]);
       }
     }
     catch(err){
@@ -215,10 +216,10 @@ class data with ChangeNotifier{
     _findedUser.clear();
     notifyListeners();
   }
-  void clearSuggestion(){
-    _nonFollowers.clear();
-    notifyListeners();
-  }
+  // void clearSuggestion(){
+  //   _nonFollowers.clear();
+  //   notifyListeners();
+  // }
  List<UserData> users  = [
      UserData(
          id: 123,
