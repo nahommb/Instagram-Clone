@@ -4,8 +4,27 @@ import 'package:provider/provider.dart';
 
 import '../provider/data.dart';
 
-class HeadBar extends StatelessWidget {
+class HeadBar extends StatefulWidget {
 
+
+
+  @override
+  State<HeadBar> createState() => _HeadBarState();
+}
+
+class _HeadBarState extends State<HeadBar> {
+
+  bool isInit = true;
+  @override
+  void didChangeDependencies() {
+    // TODO: implement didChangeDependencies
+    if(isInit){
+      final username = Provider.of<data>(context).currentUser['username'];
+      Provider.of<data>(context).followingList(username);
+    }
+    isInit = false;
+    super.didChangeDependencies();
+  }
 
   @override
   Widget build(BuildContext context) {

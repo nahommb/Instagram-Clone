@@ -123,8 +123,8 @@ class _LoginState extends State<Login> {
                             if(await userData(username,password)){
                               print("logged in");
                               getFollowData.getUser();
-                              getFollowData.clearfollowUsers();
-                              getFollowData.followingList(username);
+                              // getFollowData.clearfollowUsers();
+                              // getFollowData.followingList(username);
                               // getFollowData.followSuggestion(username);
                               Navigator.pushReplacementNamed(context, homePage.routName);
                               clear();

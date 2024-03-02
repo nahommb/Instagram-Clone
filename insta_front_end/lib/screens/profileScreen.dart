@@ -66,7 +66,7 @@ class ProfileScreen extends StatelessWidget {
                     onPressed: (){
                     // userData.clearSuggestion();
                     userData.clearSearch();
-                    userData.clearfollowUsers();
+                    // userData.clearfollowUsers();
                     userData.clearUsers();
                     Navigator.pushReplacementNamed(context, Login.routName);
                   },child: Text("Log out"),),

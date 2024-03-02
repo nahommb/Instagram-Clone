@@ -73,8 +73,10 @@ app.get('/user', function(req, res) {
 
 
 app.post('/user/login',function(req,res){
-    
-    User.findOne({username: req.body.username,password:req.body.password}).exec().then((data)=>{
+  const username = req.body.username.toLowerCase()
+console.log(username);
+
+    User.findOne({username: username,password:req.body.password}).exec().then((data)=>{
         if (data) {
             const { password, ...others } = data.toObject();
             res.send(others);

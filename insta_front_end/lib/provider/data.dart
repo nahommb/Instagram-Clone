@@ -36,11 +36,11 @@ class data with ChangeNotifier{
     return [..._findedUser];
   }
 
-  List<dynamic> _followsList =[];
-  List<dynamic> get followsList{
-
-    return [..._followsList];
-  }
+  List<dynamic> followsList =[];
+  // List<dynamic> get followsList{
+  //
+  //   return [..._followsList];
+  // }
 
   Future<bool> login(String username , String password) async{
 
@@ -175,8 +175,9 @@ class data with ChangeNotifier{
     try{
       var url = Uri.parse('http://localhost:3000/user/follows/$username');
       http.Response response = await http.get(url);
+      followsList.clear();
       for(int i=0;i<jsonDecode(response.body).length;i++){
-        _followsList.add(jsonDecode(response.body)[i]);
+        followsList.add(jsonDecode(response.body)[i]);
       }
     }
     catch(err){
@@ -208,10 +209,10 @@ class data with ChangeNotifier{
     _allUsers.clear();
     notifyListeners();
   }
-  void clearfollowUsers(){
-    _followsList.clear();
-    notifyListeners();
-  }
+  // void clearfollowUsers(){
+  //   _followsList.clear();
+  //   notifyListeners();
+  // }
   void clearSearch(){
     _findedUser.clear();
     notifyListeners();

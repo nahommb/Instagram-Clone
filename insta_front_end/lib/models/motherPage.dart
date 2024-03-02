@@ -51,7 +51,7 @@ class _homePageState extends State<homePage> {
           Navigator.pushNamed(context, ChatListScreen.routName,);
           getUser();
           userData.followingList(userData.currentUser['username']);
-          userData.clearfollowUsers();
+          // userData.clearfollowUsers();
           clearUser();
         }, icon: Icon(Icons.offline_bolt_outlined,size: 30,)),
             SizedBox(width: 20,),
