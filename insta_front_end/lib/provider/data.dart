@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class data with ChangeNotifier{
 
-  final serverIpAddress = 'localhost'; //'192.168.56.1'; //
+  final serverIpAddress = '192.168.56.1'; //''; //localhost
   var following = 0;
   var followers = 0;
 

@@ -45,7 +45,7 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
   final textController = TextEditingController();
 
   ScrollController _scrollController = ScrollController();
-
+  FocusNode fc = FocusNode();
   @override
   Widget build(BuildContext context) {
 
@@ -115,6 +115,7 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
                         child: Stack(
                           children: [
                             TextField(
+                              focusNode: fc,
                               onChanged: (val){
                                 message = val;
                               },
@@ -134,7 +135,7 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
                               alignment: Alignment.centerRight,
                               child: IconButton(
                                 icon: Icon(Icons.send,color: Colors.white,),
-                                onPressed: () async{
+                                onPressed: () {
                                   setState(() {
                                     if(message!=null){
                                       sendMessage('${currentUser['username']}','${args['name']}','$message');       textController.clear();
@@ -146,6 +147,7 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
                                       message = null;
                                     }
                                   });
+                                  fc.unfocus();
                                   // await _auth.createUserWithEmailAndPassword(email: message, password: message);
                                 },
                               ),

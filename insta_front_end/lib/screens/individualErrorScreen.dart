@@ -15,6 +15,8 @@ class _individualErrorScreenState extends State<individualErrorScreen> {
   // final _auth = FirebaseAuth.instance;
   //  Map<dynamic,dynamic> messageContainer = {};
   final textController = TextEditingController();
+  FocusNode fc = FocusNode();
+  ScrollController _scrollController = ScrollController();
 
   @override
   Widget build(BuildContext context) {
@@ -29,12 +31,13 @@ class _individualErrorScreenState extends State<individualErrorScreen> {
       children: [
         Expanded(
           child: Container(
-            color: Colors.lightBlue,
+            // color: Colors.lightBlue,
             width: double.infinity,
             padding: EdgeInsets.only(left: 30,right: 30),
             child: (insertMessage.isNotEmpty)?SingleChildScrollView(
+              controller: _scrollController,
               child: Column(
-                //crossAxisAlignment:  (currentUser['username']==insertMessage[3]['sender'])? CrossAxisAlignment.end:CrossAxisAlignment.start,
+                // crossAxisAlignment:  (currentUser['username']==insertMessage[3]['sender'])? CrossAxisAlignment.end:CrossAxisAlignment.start,
                 children: insertMessage.map((messages) => Container(
                   // color: Colors.blue,
                   width: double.infinity,
@@ -48,7 +51,7 @@ class _individualErrorScreenState extends State<individualErrorScreen> {
                           margin: EdgeInsets.only(bottom: 10),
                           padding: EdgeInsets.all(7),
                           decoration: BoxDecoration(
-                            color: Colors.green,
+                            color:  (currentUser['username']==messages['sender'])?Colors.green:Colors.lightBlue,
                             borderRadius: BorderRadius.all(Radius.circular(15)),
                           ),
                           child: Align(
@@ -84,6 +87,7 @@ class _individualErrorScreenState extends State<individualErrorScreen> {
           child: Stack(
             children: [
               TextField(
+                focusNode:fc,
                 onChanged: (val){
                   message = val;
                 },
@@ -107,7 +111,12 @@ class _individualErrorScreenState extends State<individualErrorScreen> {
                     sendMessage('${currentUser['username']}','${args['name']}','$message');
                     textController.clear();
                     setState(() {
-
+                  fc.unfocus();
+                  _scrollController.animateTo(
+                    _scrollController.position.maxScrollExtent+40,
+                    duration: Duration(milliseconds: 500),
+                    curve: Curves.fastOutSlowIn,
+                  );
                     });
                     // await _auth.createUserWithEmailAndPassword(email: message, password: message);
                   },
