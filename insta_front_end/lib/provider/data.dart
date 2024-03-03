@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class data with ChangeNotifier{
 
-  final serverIpAddress = 'localhost';
+  final serverIpAddress = '192.168.56.1'; //
   var following = 0;
   var followers = 0;
 
@@ -70,7 +70,7 @@ class data with ChangeNotifier{
   Future<bool> signup(String username , String password) async{
 
     try{
-      final url = Uri.parse('http://localhost:3000/user/signup');
+      final url = Uri.parse('http://$serverIpAddress:3000/user/signup');
       http.Response ps = await http.post(url,body: {'username':username,'password':password});
       print(ps.body.length);
       print(ps.body);
@@ -93,7 +93,7 @@ class data with ChangeNotifier{
   Future<void> getUser() async{
 
     try{
-      var url = Uri.parse('http://localhost:3000/user');
+      var url = Uri.parse('http://$serverIpAddress:3000/user');
       http.Response gt = await http.get(url);
       for(int i=0;i<jsonDecode(gt.body).length;i++){
         _allUsers.add(jsonDecode(gt.body)[i]);
@@ -110,7 +110,7 @@ class data with ChangeNotifier{
   Future<void> searchUser(String username) async{
 
     try{
-      var url = Uri.parse('http://localhost:3000/user/search/$username');
+      var url = Uri.parse('http://$serverIpAddress:3000/user/search/$username');
       http.Response gt = await http.get(url);
       // print(gt.body.length);
       // print(gt.body);
@@ -126,7 +126,7 @@ class data with ChangeNotifier{
   Future<void> followUSer(String username,String follows) async{
 
     try{
-      var url = Uri.parse('http://localhost:3000/user/follow/');
+      var url = Uri.parse('http://$serverIpAddress:3000/user/follow/');
       http.Response pt = await http.post(url,body: {
         'username':username,
         'follows':follows
@@ -142,7 +142,7 @@ class data with ChangeNotifier{
   Future<void> followingAndFollowers(String username) async {
 
     try{
-      var url = Uri.parse('http://localhost:3000/user/follows/$username');
+      var url = Uri.parse('http://$serverIpAddress:3000/user/follows/$username');
       http.Response response = await http.get(url);
       List<dynamic> responseData = jsonDecode(response.body);
 
@@ -157,7 +157,7 @@ class data with ChangeNotifier{
       // print(nonFollowers);
       // notifyListeners();
 
-      var urll = Uri.parse('http://localhost:3000/user/followed/$username');
+      var urll = Uri.parse('http://$serverIpAddress:3000/user/followed/$username');
       http.Response followersResponse = await http.get(urll);
       List<dynamic> followersResponseData = jsonDecode(followersResponse.body);
       followers = followersResponseData.length;
@@ -173,7 +173,7 @@ class data with ChangeNotifier{
 
   Future<void> followingList(String username) async {
     try{
-      var url = Uri.parse('http://localhost:3000/user/follows/$username');
+      var url = Uri.parse('http://$serverIpAddress:3000/user/follows/$username');
       http.Response response = await http.get(url);
       followsList.clear();
       for(int i=0;i<jsonDecode(response.body).length;i++){
@@ -189,7 +189,7 @@ class data with ChangeNotifier{
 
   Future<void> followSuggestion(String username) async {
     try{
-      var url = Uri.parse('http://localhost:3000/user/followsuggestion/$username');
+      var url = Uri.parse('http://$serverIpAddress:3000/user/followsuggestion/$username');
       http.Response response = await http.get(url);
       nonFollowers.clear();
       for(int i=0;i<jsonDecode(response.body).length;i++){
