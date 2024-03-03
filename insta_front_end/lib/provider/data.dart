@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 
 class data with ChangeNotifier{
 
-  final serverIpAddress = '192.168.56.1'; //
+  final serverIpAddress = 'localhost'; //'192.168.56.1'; //
   var following = 0;
   var followers = 0;
 
@@ -48,19 +48,16 @@ class data with ChangeNotifier{
 
       final url = Uri.parse('http://$serverIpAddress:3000/user/login');
       http.Response ps = await http.post(url,body: {'username':username,'password':password});
-      print(ps.body);
+     final server_response = jsonDecode(ps.body)['response'];
 
-      if (ps.body.length > 0) {
+      if (server_response!='user does not exist') {
         Map<String, dynamic> responseBody = jsonDecode(ps.body).cast<String, dynamic>();
         _currentUser = responseBody;
         print(currentUser['username']);
         notifyListeners();
         return true;
       }
-      else{
-        notifyListeners();
-        return false;
-      }
+      return false;
     }
     catch(err){
       print(err);

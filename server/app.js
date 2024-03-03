@@ -83,7 +83,9 @@ console.log(username);
            // console.log(data);
           }
         else{
-            //res.send('"user does not exist')
+            res.json({
+                'response':'user does not exist'
+            })
             console.log("user does not exist");
         }
     }).catch()

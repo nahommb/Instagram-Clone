@@ -129,6 +129,19 @@ class _LoginState extends State<Login> {
                               Navigator.pushReplacementNamed(context, homePage.routName);
                               clear();
                             }
+                            else{
+                              showDialog(context: context, builder: (context){
+                                return AlertDialog(
+                                  title: Text('something want wrong',style: TextStyle(fontSize: 15),),
+                                  content: Text('user name or password incorrect',style: TextStyle(fontSize: 13),),
+                                  actions: [
+                                    TextButton(onPressed: (){
+                                      Navigator.pop(context);
+                                    }, child: Text('Ok'))
+                                  ],
+                                );
+                              });
+                            }
                             if(username!=""&&password!=""){
                               usernametextcontroller.clear();
                               passwordtextcontroller.clear();
