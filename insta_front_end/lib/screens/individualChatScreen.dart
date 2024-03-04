@@ -12,23 +12,31 @@ import '../provider/data.dart';
 Stream<List<dynamic>> getNewMessage(String sender, String receiver) async* {
   //ScrollController _scrollController = ScrollController();
 
-  var url = Uri.parse('http://127.0.0.1:3000/user/getmessage/$sender/$receiver');
-  http.Response ps = await http.get(url);
- // print("lee ${ps.statusCode}");
-  List<dynamic> messages= jsonDecode(ps.body);
- //print(messages);
-  yield messages;
+  try{
+    final serverIpAddress = '192.168.56.1'; //localhost
 
-  while (true) {
-    await Future.delayed(Duration(seconds: 1));
-    http.Response newPs = await http.get(url);
-    List<dynamic> newMessages = jsonDecode(newPs.body);
-    if (newMessages.length > messages.length) {
-      List<dynamic> diff = newMessages.sublist(messages.length);
-      messages.addAll(diff);
-      yield diff;
-     }
+    var url = Uri.parse('http://$serverIpAddress:3000/user/getmessage/$sender/$receiver');
+    http.Response ps = await http.get(url);
+    // print("lee ${ps.statusCode}");
+    List<dynamic> messages= jsonDecode(ps.body);
+    //print(messages);
+    yield messages;
+
+    while (true) {
+      await Future.delayed(Duration(seconds: 1));
+      http.Response newPs = await http.get(url);
+      List<dynamic> newMessages = jsonDecode(newPs.body);
+      if (newMessages.length > messages.length) {
+        List<dynamic> diff = newMessages.sublist(messages.length);
+        messages.addAll(diff);
+        yield diff;
+      }
+    }
   }
+  catch(err){
+    print('newaojsoijdoijasodjsjd $err');
+  }
+
 }
 
 class IndividualChatScreen extends StatefulWidget {
@@ -41,11 +49,29 @@ class IndividualChatScreen extends StatefulWidget {
 
 class _IndividualChatScreenState extends State<IndividualChatScreen> {
   var message;
-
+  bool isInit = true;
   final textController = TextEditingController();
 
   ScrollController _scrollController = ScrollController();
   FocusNode fc = FocusNode();
+
+  @override
+  void didChangeDependencies() async{
+    // TODO: implement didChangeDependencies
+    if(isInit){
+      final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+      final currentUser = Provider.of<data>(context).currentUser;
+      await getNewMessage(currentUser['username'],args['name']);
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent+40,
+        duration: Duration(milliseconds: 500),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
+    isInit = false;
+    super.didChangeDependencies();
+  }
+
   @override
   Widget build(BuildContext context) {
 
@@ -106,9 +132,9 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
                     crossAxisAlignment: CrossAxisAlignment.center,
                     mainAxisAlignment: MainAxisAlignment.spaceAround,
                     children: [
-                      IconButton(onPressed: (){}, icon: Icon(Icons.camera_alt_outlined,size: 40,)),
+                      IconButton(onPressed: (){}, icon: Icon(Icons.camera_alt_outlined,size: 30,)),
                       Container(
-                        width: 400,
+                        width: 340,
                         decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(8),
                         ),
@@ -122,10 +148,15 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
                               controller: textController,
                               style: TextStyle(color: Colors.white),
                               decoration: InputDecoration(
+                                focusedBorder:OutlineInputBorder(
+                                borderSide: BorderSide(color: Colors.grey),
+                                borderRadius: BorderRadius.all(Radius.circular(25))// Change the border color here
+                                ) ,
                               border: OutlineInputBorder(),
-                              enabledBorder: OutlineInputBorder(
-                              borderSide: BorderSide(color: Colors.grey), // Change the border color here
-                              ),
+                                enabledBorder: OutlineInputBorder(
+                                    borderSide: BorderSide(color: Colors.grey),
+                                    borderRadius: BorderRadius.all(Radius.circular(25))// Change the border color here
+                                ),
                               filled: true,
                               fillColor: Colors.black,
                               contentPadding: EdgeInsets.only(top: 0,bottom: 0,left: 6),
@@ -145,9 +176,10 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
                                         curve: Curves.fastOutSlowIn,
                                       );
                                       message = null;
+                                      fc.unfocus();
                                     }
                                   });
-                                  fc.unfocus();
+
                                   // await _auth.createUserWithEmailAndPassword(email: message, password: message);
                                 },
                               ),
@@ -157,7 +189,7 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
                       ),
                     ],
                   ),
-                  SizedBox(height: 15,)
+                  SizedBox(height: 10,)
                 ],
               ),
             );

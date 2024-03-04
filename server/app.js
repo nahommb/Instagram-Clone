@@ -123,6 +123,7 @@ app.post('/user/sendmessage',function(req,res){
         message:req.body.message,
     })
     console.log(message); 
+    res.send('successed')
     message.save();
 })
 

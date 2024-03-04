@@ -17,12 +17,27 @@ class _individualErrorScreenState extends State<individualErrorScreen> {
   final textController = TextEditingController();
   FocusNode fc = FocusNode();
   ScrollController _scrollController = ScrollController();
+  bool isInit = true;
+  @override
+  void didChangeDependencies() async{
+    // TODO: implement didChangeDependencies
+    super.didChangeDependencies();
+    if (isInit) {
+      final getMessage = await Provider.of<ChatHistory>(context).chatHistory;
+      _scrollController.animateTo(
+        _scrollController.position.maxScrollExtent+40,
+        duration: Duration(milliseconds: 20),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
+    isInit = false;
+  }
 
   @override
   Widget build(BuildContext context) {
 
     final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-    final insertMessage = Provider.of<ChatHistory>(context).chatHistory;
+    final getMessage = Provider.of<ChatHistory>(context).chatHistory;
     final sendMessage = Provider.of<ChatHistory>(context).sendMessage;
     final currentUser = Provider.of<data>(context).currentUser;
     final messageHandler =Provider.of<ChatHistory>(context).getMessage("${currentUser['username']}", '${args['name']}');
@@ -34,12 +49,12 @@ class _individualErrorScreenState extends State<individualErrorScreen> {
             // color: Colors.lightBlue,
             width: double.infinity,
             padding: EdgeInsets.only(left: 30,right: 30),
-            child: (insertMessage.isNotEmpty)?SingleChildScrollView(
+            child: (getMessage.isNotEmpty)?SingleChildScrollView(
               controller: _scrollController,
               child: Column(
                 // crossAxisAlignment:  (currentUser['username']==insertMessage[3]['sender'])? CrossAxisAlignment.end:CrossAxisAlignment.start,
-                children: insertMessage.map((messages) => Container(
-                  // color: Colors.blue,
+                children: getMessage.map((messages) => Container(
+                  color: Colors.blue,
                   width: double.infinity,
                   child: Column(
                     crossAxisAlignment:  (currentUser['username']==messages['sender'])? CrossAxisAlignment.end:CrossAxisAlignment.start,
@@ -94,7 +109,8 @@ class _individualErrorScreenState extends State<individualErrorScreen> {
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
                   enabledBorder: OutlineInputBorder(
-                    borderSide: BorderSide(color: Colors.grey), // Change the border color here
+                    borderSide: BorderSide(color: Colors.grey),
+                    borderRadius: BorderRadius.all(Radius.circular(25))// Change the border color here
                   ),
                   filled: true,
                   fillColor: Colors.black,
@@ -108,16 +124,20 @@ class _individualErrorScreenState extends State<individualErrorScreen> {
                 child: IconButton(
                   icon: Icon(Icons.send,color: Colors.white,),
                   onPressed: () async{
-                    sendMessage('${currentUser['username']}','${args['name']}','$message');
-                    textController.clear();
-                    setState(() {
-                  fc.unfocus();
-                  _scrollController.animateTo(
-                    _scrollController.position.maxScrollExtent+40,
-                    duration: Duration(milliseconds: 500),
-                    curve: Curves.fastOutSlowIn,
-                  );
-                    });
+                    if(message!='' && message!=null){
+                      sendMessage('${currentUser['username']}','${args['name']}','$message');
+                      textController.clear();
+                      setState(() {
+                        fc.unfocus();
+                        _scrollController.animateTo(
+                          _scrollController.position.maxScrollExtent+40,
+                          duration: Duration(milliseconds: 500),
+                          curve: Curves.fastOutSlowIn,
+                        );
+                      });
+                      message ='';
+                    }
+
                     // await _auth.createUserWithEmailAndPassword(email: message, password: message);
                   },
                 ),
