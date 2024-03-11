@@ -59,14 +59,15 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
   void didChangeDependencies() async{
     // TODO: implement didChangeDependencies
     if(isInit){
-      final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
-      final currentUser = Provider.of<data>(context).currentUser;
-      await getNewMessage(currentUser['username'],args['name']);
-      _scrollController.animateTo(
-        _scrollController.position.maxScrollExtent+40,
-        duration: Duration(milliseconds: 500),
-        curve: Curves.fastOutSlowIn,
-      );
+
+        final args = ModalRoute.of(context)?.settings.arguments as Map<String, dynamic>;
+        final currentUser = Provider.of<data>(context).currentUser;
+        await getNewMessage(currentUser['username'],args['name']);
+        _scrollController.animateTo(
+          _scrollController.position.maxScrollExtent+40,
+          duration: Duration(milliseconds: 500),
+          curve: Curves.fastOutSlowIn,
+        );
     }
     isInit = false;
     super.didChangeDependencies();

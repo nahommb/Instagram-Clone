@@ -41,14 +41,15 @@ class data with ChangeNotifier{
   //
   //   return [..._followsList];
   // }
-
+   var loginStatusCode;
   Future<bool> login(String username , String password) async{
 
     try{
-
       final url = Uri.parse('http://$serverIpAddress:3000/user/login');
       http.Response ps = await http.post(url,body: {'username':username,'password':password});
      final server_response = jsonDecode(ps.body)['response'];
+      loginStatusCode = ps.statusCode;
+      print(loginStatusCode);
 
       if (server_response!='user does not exist') {
         Map<String, dynamic> responseBody = jsonDecode(ps.body).cast<String, dynamic>();

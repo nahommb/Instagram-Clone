@@ -120,6 +120,7 @@ class _LoginState extends State<Login> {
                       SizedBox(height: 10,),
                       ElevatedButton(
                           onPressed: () async{
+                             _passwordfocusNode.unfocus();
                             if(await userData(username,password)){
                               print("logged in");
                               getFollowData.getUser();

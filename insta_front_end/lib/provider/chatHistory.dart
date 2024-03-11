@@ -43,6 +43,36 @@ class ChatHistory with ChangeNotifier{
 
  }
 
+  Stream<List<dynamic>> getNewMessage(String sender, String receiver) async* {
+    //ScrollController _scrollController = ScrollController();
+
+    try{
+      final serverIpAddress = '192.168.56.1'; //localhost
+
+      var url = Uri.parse('http://$serverIpAddress:3000/user/getmessage/$sender/$receiver');
+      http.Response ps = await http.get(url);
+      // print("lee ${ps.statusCode}");
+      List<dynamic> messages= jsonDecode(ps.body);
+      //print(messages);
+      yield messages;
+
+      while (true) {
+        await Future.delayed(Duration(seconds: 1));
+        http.Response newPs = await http.get(url);
+        List<dynamic> newMessages = jsonDecode(newPs.body);
+        if (newMessages.length > messages.length) {
+          List<dynamic> diff = newMessages.sublist(messages.length);
+          messages.addAll(diff);
+          yield diff;
+        }
+      }
+    }
+    catch(err){
+      print('newaojsoijdoijasodjsjd $err');
+    }
+
+  }
+
   void clearChat(){
     _chatHistory.clear();
     notifyListeners();
