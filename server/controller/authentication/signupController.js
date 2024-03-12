@@ -1,13 +1,16 @@
 const User= require('../../models/dataShemaModel')
+const bcrypt = require('bcrypt')
 
-const signupController = (req,res)=>{
+const signupController = async (req,res)=>{
 
     const username = req.body.username;
-    const password = req.body.password;
+    const password = await bcrypt.hash(req.body.password,10);
+
 
     User.findOne({username:username}).exec().then((data)=>{
         if(!data){
             console.log(username) 
+            console.log(password)
 
             const user = User({
                 username:username,

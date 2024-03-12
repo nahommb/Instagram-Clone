@@ -15,12 +15,13 @@ const following = require('./controller/userConrollers/following')
 const followed = require('./controller/userConrollers/followed')
 const chatList = require('./controller/userConrollers/chatList')
 
+const auth = require('./routes/auth');
 
 app.use(bdy.urlencoded({extended:true}));
 
 mongoose.connect("mongodb://127.0.0.1:27017/instadb");
 
-
+app.use('/user',auth)
 
 
 
