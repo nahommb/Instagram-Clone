@@ -34,7 +34,7 @@ Stream<List<dynamic>> getNewMessage(String sender, String receiver) async* {
     }
   }
   catch(err){
-    print($err);
+    print(err);
   }
 
 }
