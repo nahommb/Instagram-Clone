@@ -13,7 +13,7 @@ Stream<List<dynamic>> getNewMessage(String sender, String receiver) async* {
   //ScrollController _scrollController = ScrollController();
 
   try{
-    final serverIpAddress = '192.168.56.1'; //localhost
+    final serverIpAddress = 'localhost'; // 192.168.56.1
 
     var url = Uri.parse('http://$serverIpAddress:3000/user/getmessage/$sender/$receiver');
     http.Response ps = await http.get(url);
@@ -80,7 +80,7 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
    // final insertMessage = Provider.of<ChatHistory>(context).chatHistory;
     final sendMessage = Provider.of<ChatHistory>(context).sendMessage;
     final currentUser = Provider.of<data>(context).currentUser;
-    final messageHandler =Provider.of<ChatHistory>(context).getMessage("${currentUser['username']}", '${args['name']}');
+    // final messageHandler =Provider.of<ChatHistory>(context).getMessage("${currentUser['username']}", '${args['name']}');
 
     return Scaffold(
       backgroundColor: Colors.black,
