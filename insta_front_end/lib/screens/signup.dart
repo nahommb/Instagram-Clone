@@ -47,7 +47,7 @@ class _SignupState extends State<Signup> {
         },
         child: Center(
           child: Container(
-            //  color: Colors.white,
+             // color: Colors.white,
             width: 400,
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -55,7 +55,7 @@ class _SignupState extends State<Signup> {
               children: [
                 Container(
                   margin: EdgeInsets.only(top: 100),
-                  height: 500,
+                  // height: 500,
                   width: double.infinity,
                   // color: Colors.lightBlueAccent,
                   padding: EdgeInsets.all(30),
@@ -88,6 +88,7 @@ class _SignupState extends State<Signup> {
                       SizedBox(height: 10,),
                       TextField(
                         focusNode: _passwordfocusNode,
+                        keyboardType: TextInputType.visiblePassword,
                         textAlignVertical: TextAlignVertical.top,
                         //textAlign: TextAlign.center,
                         controller: passwordtextcontroller,
