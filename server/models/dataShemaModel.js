@@ -3,7 +3,7 @@ const mongoose=require('mongoose')
 const dataSchema= mongoose.Schema({
     username:String,
     password:String,
-    follow:[]
+    followers:[]
 })
 const User = mongoose.model('user',dataSchema);
 

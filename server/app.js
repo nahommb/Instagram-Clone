@@ -14,6 +14,9 @@ const followSuggestion = require('./controller/userConrollers/followSuggestion')
 const following = require('./controller/userConrollers/following')
 const followed = require('./controller/userConrollers/followed')
 const chatList = require('./controller/userConrollers/chatList')
+const newFollwer = require('./controller/userConrollers/insertFollowrs')
+
+
 
 const auth = require('./routes/auth');
 
@@ -65,6 +68,7 @@ app.get('/user/follows/:username',following)
 app.get('/user/followed/:username',followed)
 app.get('/user/chatList/:username',chatList)
 app.get('/user/followsuggestion/:username',followSuggestion)
+app.patch('/newfollower/:username',newFollwer)
 
 app.post('/user/post',function(req,res){
    upload(req,res,(err)=>{
