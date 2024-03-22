@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:http/http.dart'as http;
 class ChatHistory with ChangeNotifier{
 
-  final serverIpAddress = '127.0.0.1'; //''; //192.168.56.1
+  final serverIpAddress = '192.168.56.1';  //127.0.0.1'
   List<Object> _chatHistory =[];
 
 

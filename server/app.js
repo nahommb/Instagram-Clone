@@ -3,9 +3,10 @@ const app = ex();
 const mongoose = require('mongoose');
 const bdy = require('body-parser');
 const multer = require('multer')
+
 const getUser = require('./controller/userConrollers/getUser')
 const messageContoller = require('./controller/messageController/messageController')
-const loginController = require('./controller/authentication/loginConroller')
+// const loginController = require('./controller/authentication/loginConroller')
 const signupController = require('./controller/authentication/signupController')
 const getMessage = require('./controller/messageController/getMessage')
 const searchUser = require('./controller/userConrollers/searchUser')
@@ -14,17 +15,17 @@ const followSuggestion = require('./controller/userConrollers/followSuggestion')
 const following = require('./controller/userConrollers/following')
 const followed = require('./controller/userConrollers/followed')
 const chatList = require('./controller/userConrollers/chatList')
-const newFollwer = require('./controller/userConrollers/insertFollowrs')
 
 
 
-const auth = require('./routes/auth');
+
+const userActivity = require('./routes/userActivity');
 
 app.use(bdy.urlencoded({extended:true}));
 
 mongoose.connect("mongodb://127.0.0.1:27017/instadb");
 
-app.use('/user',auth)
+app.use('/user',userActivity)
 
 
 
@@ -58,7 +59,7 @@ const upload = multer({
 
 
 app.get('/user',getUser); 
-app.post('/user/login',loginController)
+// app.post('/user/login',loginController)
 app.post('/user/signup',signupController)
 app.post('/user/sendmessage',messageContoller)
 app.get('/user/getmessage/:sender/:receiver',getMessage)
@@ -68,7 +69,7 @@ app.get('/user/follows/:username',following)
 app.get('/user/followed/:username',followed)
 app.get('/user/chatList/:username',chatList)
 app.get('/user/followsuggestion/:username',followSuggestion)
-app.patch('/newfollower/:username',newFollwer)
+
 
 app.post('/user/post',function(req,res){
    upload(req,res,(err)=>{

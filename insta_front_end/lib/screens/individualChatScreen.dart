@@ -13,7 +13,7 @@ Stream<List<dynamic>> getNewMessage(String sender, String receiver) async* {
   //ScrollController _scrollController = ScrollController();
 
   try{
-    final serverIpAddress = 'localhost'; // 192.168.56.1
+    final serverIpAddress = '192.168.56.1'; // localhost
 
     var url = Uri.parse('http://$serverIpAddress:3000/user/getmessage/$sender/$receiver');
     http.Response ps = await http.get(url);

@@ -45,7 +45,7 @@ class data with ChangeNotifier{
   Future<bool> login(String username , String password) async{
 
     try{
-      final url = Uri.parse('http://$serverIpAddress:3000/user/login');
+      final url = Uri.parse('http://$serverIpAddress:3000/user/auth/login');
       http.Response ps = await http.post(url,body: {'username':username,'password':password});
      final server_response = jsonDecode(ps.body)['response'];
       loginStatusCode = ps.statusCode;
@@ -123,12 +123,15 @@ class data with ChangeNotifier{
 
   Future<void> followUSer(String username,String follows) async{
 
+
+
     try{
       var url = Uri.parse('http://$serverIpAddress:3000/user/follow/');
       http.Response pt = await http.post(url,body: {
         'username':username,
         'follows':follows
       });
+
     }
     catch(err){
     // print(err);
