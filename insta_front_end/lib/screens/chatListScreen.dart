@@ -57,9 +57,9 @@ class ChatListScreen extends StatelessWidget {
                 itemBuilder: (context,index)=>
                     ListTile(
                       onTap: (){
-                        messageHandler.getMessage('${currentUser['username']}',"${userData[index]['username']}");
+                        messageHandler.getMessage('${currentUser['username']}',"${userData[index]}");
                         messageHandler.clearChat();
-                        Navigator.pushNamed(context, IndividualChatScreen.routName,arguments: {'name': userData[index]['follows']});
+                        Navigator.pushNamed(context, IndividualChatScreen.routName,arguments: {'name': userData[index]});
                         //Navigator.pushNamed(context, YourWidget.routName);
                         //clearUser();
                       },
@@ -69,7 +69,7 @@ class ChatListScreen extends StatelessWidget {
                         //  child: Image.network("${userData[index].storyImageUrl}$index/300/300",fit:BoxFit.cover),
                         ),
                       ),
-                      title: Text('${userData[index]['follows']}'),
+                      title: Text('${userData[index]}'),
                       subtitle: Text('active now'),
                       trailing: Icon(Icons.camera_alt_outlined),
                     ),

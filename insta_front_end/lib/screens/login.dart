@@ -121,6 +121,7 @@ class _LoginState extends State<Login> {
                       ElevatedButton(
                           onPressed: () async{
                              _passwordfocusNode.unfocus();
+
                             if(await userData(username,password)){
                               print("logged in");
                               getFollowData.getUser();
@@ -134,7 +135,7 @@ class _LoginState extends State<Login> {
                               showDialog(context: context, builder: (context){
                                 return AlertDialog(
                                   title: Text('something want wrong',style: TextStyle(fontSize: 15),),
-                                  content: Text('user name or password incorrect',style: TextStyle(fontSize: 13),),
+                                  content: Text('User name or Password incorrect',style: TextStyle(fontSize: 13),),
                                   actions: [
                                     TextButton(onPressed: (){
                                       Navigator.pop(context);

@@ -102,7 +102,7 @@ class _HeadBarState extends State<HeadBar> {
                             ),
                           ),
 
-                      Text('${userData.followsList[index]['follows']}')  ],
+                      Text('${userData.followsList[index]}')  ],
                       ),
 
                     ],

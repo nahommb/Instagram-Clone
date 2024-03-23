@@ -1,9 +1,14 @@
-const Follow = require('../../models/followSchemaModel')
+const User = require('../../models/dataShemaModel')
+
 
 const following = (req,res)=>{
-    Follow.find({username:req.params.username}).exec().then((data)=>{
+    User.findOne({username:req.params.username}).exec().then((data)=>{
         if(data){
-            res.send(data);
+            followingList = data.followers
+            console.log(followingList)
+            res.json({
+                'followingList': followingList
+            });
         }
     }).catch();
 }

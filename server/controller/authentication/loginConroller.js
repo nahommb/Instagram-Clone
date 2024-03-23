@@ -5,7 +5,7 @@ const loginController = async (req,res)=>{
     const username = req.body.username.toLowerCase()
     console.log(username);
     const userpassword = req.body.password
-    //  console.log(password)
+  
 
     User.findOne ({username: username}).exec().then(async (data)=>{
           if (data){

@@ -1,5 +1,6 @@
 import 'dart:convert';
 
+
 import 'package:flutter/material.dart';
 import 'package:insta_front_end/models/userData.dart';
 import 'package:http/http.dart' as http;
@@ -7,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class data with ChangeNotifier{
 
-  final serverIpAddress = '192.168.56.1'; //''; //localhost
+  final serverIpAddress = 'localhost'; //''; //192.168.56.1
   var following = 0;
   var followers = 0;
 
@@ -143,15 +144,15 @@ class data with ChangeNotifier{
   Future<void> followingAndFollowers(String username) async {
 
     try{
-      var url = Uri.parse('http://$serverIpAddress:3000/user/follows/$username');
+      var url = Uri.parse('http://$serverIpAddress:3000/user/following/$username');
       http.Response response = await http.get(url);
-      List<dynamic> responseData = jsonDecode(response.body);
+      final responseData = jsonDecode(response.body);
 
       // print(responseData);
-      following = responseData.length;
-      for(int i = 0;i<responseData.length;i++ ){
-        _allUsers.removeWhere((element) => element['username'] == responseData[i]['follows']);
-      }
+      following = responseData['followingList'].length;
+      // for(int i = 0;i<responseData.length;i++ ){
+      //   _allUsers.removeWhere((element) => element['username'] == responseData[i]['follows']);
+      // }
       // nonFollowers = _allUsers;
 
       // print(_allUsers);
@@ -174,12 +175,22 @@ class data with ChangeNotifier{
 
   Future<void> followingList(String username) async {
     try{
-      var url = Uri.parse('http://$serverIpAddress:3000/user/follows/$username');
+      var url = Uri.parse('http://$serverIpAddress:3000/user/following/$username');
       http.Response response = await http.get(url);
       followsList.clear();
-      for(int i=0;i<jsonDecode(response.body).length;i++){
-        followsList.add(jsonDecode(response.body)[i]);
+
+
+      final responseData = jsonDecode(response.body);
+      print('lee $followsList');
+      print(responseData['followingList']);
+
+      if(responseData['followingList'].length>0){
+        for(int i=0;i<responseData.length;i++){
+          followsList.add(responseData['followingList'][i]);
+        }
+
       }
+      print('lee $followsList');
     }
     catch(err){
      // print(err);

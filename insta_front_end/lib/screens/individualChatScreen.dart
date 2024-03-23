@@ -94,7 +94,7 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
 
             // Do something with the list of messages
             return Container(
-              //color: Colors.lightBlueAccent,
+              // color: Colors.lightGreenAccent,
               child: Column(
                 children: [
                   Expanded(
