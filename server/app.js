@@ -20,13 +20,14 @@ const chatList = require('./controller/userConrollers/chatList')
 
 
 const userActivity = require('./routes/userActivity');
+const userAutentication = require('./routes/userAuthentication')
 
 app.use(bdy.urlencoded({extended:true}));
 
 mongoose.connect("mongodb://127.0.0.1:27017/instadb");
 
 app.use('/user',userActivity)
-
+app.use('/auth',userAutentication)
 
 
 

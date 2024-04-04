@@ -124,7 +124,7 @@ class _LoginState extends State<Login> {
 
                             if(await userData(username,password)){
                               print("logged in");
-                              getFollowData.getUser();
+                              // getFollowData.getUser();
                               // getFollowData.clearfollowUsers();
                               // getFollowData.followingList(username);
                               // getFollowData.followSuggestion(username);

@@ -84,7 +84,13 @@ class _IndividualChatScreenState extends State<IndividualChatScreen> {
 
     return Scaffold(
       backgroundColor: Colors.black,
-      appBar: AppBar(title: Text("${args['name']}"),backgroundColor: Colors.black,),
+      appBar: AppBar(title: Row(
+        children: [
+          CircleAvatar(radius: 20,backgroundColor: Colors.cyan),
+          SizedBox(width: 10,),
+          Text("${args['name']}"),
+        ],
+      ),backgroundColor: Colors.black,),
       body:StreamBuilder<List<dynamic>>(
 
         stream: getNewMessage(currentUser['username'],args['name']), // Replace with appropriate sender and receiver values

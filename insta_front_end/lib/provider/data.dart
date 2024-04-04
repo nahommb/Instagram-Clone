@@ -8,7 +8,7 @@ import 'package:provider/provider.dart';
 
 class data with ChangeNotifier{
 
-  final serverIpAddress = 'localhost'; //''; //192.168.56.1
+  final serverIpAddress = '192.168.56.1'; //''; //localhost
   var following = 0;
   var followers = 0;
 
@@ -46,7 +46,7 @@ class data with ChangeNotifier{
   Future<bool> login(String username , String password) async{
 
     try{
-      final url = Uri.parse('http://$serverIpAddress:3000/user/auth/login');
+      final url = Uri.parse('http://$serverIpAddress:3000/auth/login');
       http.Response ps = await http.post(url,body: {'username':username,'password':password});
      final server_response = jsonDecode(ps.body)['response'];
       loginStatusCode = ps.statusCode;
@@ -69,7 +69,7 @@ class data with ChangeNotifier{
   Future<bool> signup(String username , String password) async{
 
     try{
-      final url = Uri.parse('http://$serverIpAddress:3000/user/signup');
+      final url = Uri.parse('http://$serverIpAddress:3000/auth/signup');
       http.Response ps = await http.post(url,body: {'username':username,'password':password});
       print(ps.body.length);
       print(ps.body);
@@ -89,22 +89,22 @@ class data with ChangeNotifier{
 
   }
 
-  Future<void> getUser() async{
-
-    try{
-      var url = Uri.parse('http://$serverIpAddress:3000/user');
-      http.Response gt = await http.get(url);
-      for(int i=0;i<jsonDecode(gt.body).length;i++){
-        _allUsers.add(jsonDecode(gt.body)[i]);
-      }
-      _allUsers.removeWhere((element) => element['username']==currentUser['username']);
-    }
-    catch(err){
-   //  print(err);
-    }
-
-    notifyListeners();
-  }
+  // Future<void> getUser() async{
+  //
+  //   try{
+  //     var url = Uri.parse('http://$serverIpAddress:3000/user');
+  //     http.Response gt = await http.get(url);
+  //     for(int i=0;i<jsonDecode(gt.body).length;i++){
+  //       _allUsers.add(jsonDecode(gt.body)[i]);
+  //     }
+  //     _allUsers.removeWhere((element) => element['username']==currentUser['username']);
+  //   }
+  //   catch(err){
+  //  //  print(err);
+  //   }
+  //
+  //   notifyListeners();
+  // }
 
   Future<void> searchUser(String username) async{
 

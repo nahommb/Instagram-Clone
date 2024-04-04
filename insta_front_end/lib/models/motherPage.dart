@@ -34,7 +34,7 @@ class _homePageState extends State<homePage> {
 
   @override
   Widget build(BuildContext context) {
-    final getUser = Provider.of<data>(context).getUser;
+    // final getUser = Provider.of<data>(context).getUser;
     final clearUser = Provider.of<data>(context).clearUsers;
     final userData = Provider.of<data>(context);
     //userData.followingAndFollowers(userData.currentUser['username']);
@@ -49,7 +49,7 @@ class _homePageState extends State<homePage> {
         SizedBox(width: 8,),
         IconButton(onPressed: (){
           Navigator.pushNamed(context, ChatListScreen.routName,);
-          getUser();
+          // getUser();
           userData.followingList(userData.currentUser['username']);
           // userData.clearfollowUsers();
           clearUser();
