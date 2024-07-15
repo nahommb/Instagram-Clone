@@ -71,6 +71,7 @@ class _searchScreenState extends State<searchScreen> {
                     title: Text('${data.findedUser[0]['username']}'),
                     subtitle: Text('abelians'),
                     trailing: ElevatedButton(onPressed: (){
+                      print('pressed');
                       userData.followUSer(userData.currentUser['username'], data.findedUser[0]['username']);
                     },child: Text("Follow"),),)
 

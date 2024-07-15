@@ -127,12 +127,11 @@ class data with ChangeNotifier{
 
 
     try{
-      var url = Uri.parse('http://$serverIpAddress:3000/user/follow/');
-      http.Response pt = await http.post(url,body: {
-        'username':username,
-        'follows':follows
+      var url = Uri.parse('http://$serverIpAddress:3000/user/newfollower/$username');
+      http.Response pt = await http.patch(url,body: {
+        'newfollower':follows
       });
-
+     print('leee ${pt.body}');
     }
     catch(err){
     // print(err);
@@ -233,6 +232,7 @@ class data with ChangeNotifier{
   //   _nonFollowers.clear();
   //   notifyListeners();
   // }
+
  List<UserData> users  = [
      UserData(
          id: 123,
