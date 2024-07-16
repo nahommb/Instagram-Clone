@@ -42,16 +42,16 @@ class ProfileScreen extends StatelessWidget {
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
+                    Text("${userData.followers}"),
                     Text("Followers"),
-                    Text("${userData.followers}")
                   ],
                 ),
                 SizedBox(width: 10,),
                 Column(
                   mainAxisAlignment: MainAxisAlignment.start,
                   children: [
-                    Text("Following"),
-                    Text("${userData.following}")
+                    Text("${userData.following}"),
+                    Text("Following")
                   ],
                 ),
               ],
@@ -73,7 +73,13 @@ class ProfileScreen extends StatelessWidget {
                 ],
               )
           ),
-
+        SizedBox(height: 20,),
+        Container(
+          color: Colors.lightBlue,
+          height: 200,
+          width: double.infinity,
+          child: Text('lee'),
+        )
         ],
       ),
     );

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insta_front_end/provider/post.dart';
 import 'package:insta_front_end/screens/chatListScreen.dart';
 import 'package:insta_front_end/screens/profileScreen.dart';
 import 'package:insta_front_end/screens/reelsScreen.dart';
@@ -17,10 +18,10 @@ class homePage extends StatefulWidget {
 
 class _homePageState extends State<homePage> {
   int _currentIndex = 0;
-  List<Widget> pages=[
+  List<dynamic> pages=[
     homeScreen(),
     searchScreen(),
-    AddPostScreen(),
+    Text(''),
     ReelsScreen(),
     ProfileScreen()
   ];
@@ -58,29 +59,33 @@ class _homePageState extends State<homePage> {
       ]),
       body: pages[_currentIndex],
       bottomNavigationBar: BottomNavigationBar(
-        selectedItemColor: Colors.lightBlue,
+
+        selectedItemColor: Colors.white,
         iconSize: 30,
         currentIndex: _currentIndex,
         onTap: _onItemTapped,
         items: [
           BottomNavigationBarItem(
-            icon: Icon(Icons.home,color: Colors.lightBlue),
+            icon: Icon(Icons.home,color: Colors.white),
             label: 'Home',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.explore,color: Colors.lightBlue,),
+            icon: Icon(Icons.explore,color: Colors.white,),
             label: 'Explore',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.add_circle_outline,color: Colors.lightBlue),
+            icon: IconButton(onPressed: () {
+              Provider.of<Post>(context,listen: false).getImage();
+              print('addddddd');},icon: Icon(Icons.add,color: Colors.white,),),
             label: 'Add',
+
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.movie,color: Colors.lightBlue),
+            icon: Icon(Icons.movie,color: Colors.white),
             label: 'Reel',
           ),
           BottomNavigationBarItem(
-            icon: Icon(Icons.account_circle,color: Colors.lightBlue),
+            icon: Icon(Icons.account_circle,color: Colors.white),
             label: 'Profile',
           ),
         ],

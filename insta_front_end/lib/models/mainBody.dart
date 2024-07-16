@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../provider/data.dart';
  class mainBody extends StatelessWidget {
    const mainBody({Key? key}) : super(key: key);
-
+   final image = 'http://localhost:3001/previousworks/20220106_144116.jpg';
    @override
    Widget build(BuildContext context) {
      final userData = Provider.of<data>(context).users;
@@ -36,7 +36,7 @@ import '../provider/data.dart';
                          width: double.infinity,
                          height: constraints.maxHeight*0.5,
                          color: Colors.orange,
-                         child: Image.network('https://picsum.photos/id/23$index/300/200',fit: BoxFit.cover,),
+                         child: Image.network(image,fit: BoxFit.cover,),
                        ),
                        Container(
                          height: 40,

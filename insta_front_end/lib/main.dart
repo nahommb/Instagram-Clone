@@ -2,6 +2,7 @@
 import 'package:flutter/material.dart';
 import 'package:insta_front_end/provider/chatHistory.dart';
 import 'package:insta_front_end/provider/data.dart';
+import 'package:insta_front_end/provider/post.dart';
 import 'package:insta_front_end/screens/cc.dart';
 import 'package:insta_front_end/screens/chatListScreen.dart';
 import 'package:insta_front_end/screens/individualChatScreen.dart';
@@ -26,7 +27,8 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(create: (context)=>data()),
-        ChangeNotifierProvider(create: (context)=>ChatHistory())
+        ChangeNotifierProvider(create: (context)=>ChatHistory()),
+        ChangeNotifierProvider(create: (context)=>Post())
       ],
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
