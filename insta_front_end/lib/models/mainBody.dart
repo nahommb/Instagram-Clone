@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import '../provider/data.dart';
  class mainBody extends StatelessWidget {
    const mainBody({Key? key}) : super(key: key);
-   final image = 'http://localhost:3001/previousworks/20220106_144116.jpg';
+   final image = 'http://192.168.56.1:3001/previousworks/20220106_144116.jpg';
    @override
    Widget build(BuildContext context) {
      final userData = Provider.of<data>(context).users;
