@@ -6,7 +6,7 @@ import 'package:insta_front_end/screens/reelsScreen.dart';
 import 'package:insta_front_end/screens/searchScreen.dart';
 import 'package:provider/provider.dart';
 import '../provider/data.dart';
-import '../screens/addPostScreen.dart';
+import '../screens/newPostScreen.dart';
 import '../screens/homeSceen.dart';
 import 'headBar.dart';
 import 'mainBody.dart';
