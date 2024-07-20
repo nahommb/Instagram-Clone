@@ -163,7 +163,7 @@ class _SignupState extends State<Signup> {
                             if(confirmPassword==password){
                               if(await userData(username,password)){
 
-                                Navigator.pushNamed(context, Login.routName);
+                                Navigator.pop(context);
                               };
                             }
                             if(username!=""&&password!=""){

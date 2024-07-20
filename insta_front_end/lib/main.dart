@@ -7,6 +7,7 @@ import 'package:insta_front_end/screens/cc.dart';
 import 'package:insta_front_end/screens/chatListScreen.dart';
 import 'package:insta_front_end/screens/individualChatScreen.dart';
 import 'package:insta_front_end/screens/login.dart';
+import 'package:insta_front_end/screens/newPostScreen.dart';
 import 'package:insta_front_end/screens/signup.dart';
 import 'package:insta_front_end/screens/storyScreen.dart';
 import 'package:provider/provider.dart';
@@ -42,7 +43,7 @@ class MyApp extends StatelessWidget {
           ChatListScreen.routName:(context)=>ChatListScreen(),
           StoriesScreen.routName:(context)=>StoriesScreen(),
           IndividualChatScreen.routName:(context)=>IndividualChatScreen(),
-
+          NewPostScreen.routName:(context)=>NewPostScreen(),
         },
       ),
     );

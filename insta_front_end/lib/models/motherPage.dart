@@ -75,7 +75,7 @@ class _homePageState extends State<homePage> {
           ),
           BottomNavigationBarItem(
             icon: IconButton(onPressed: () {
-              Provider.of<Post>(context,listen: false).getImage();
+              Provider.of<Post>(context,listen: false).getImage(context);
               print('addddddd');},icon: Icon(Icons.add,color: Colors.white,),),
             label: 'Add',
 

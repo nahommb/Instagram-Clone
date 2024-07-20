@@ -34,7 +34,7 @@ import '../provider/data.dart';
                        SizedBox(height: 10,),
                        Container(
                          width: double.infinity,
-                         height: constraints.maxHeight*0.5,
+                         // height: constraints.maxHeight*0.5,
                          color: Colors.orange,
                          child: Image.network(image,fit: BoxFit.cover,),
                        ),
