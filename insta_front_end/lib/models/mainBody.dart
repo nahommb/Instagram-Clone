@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:insta_front_end/provider/post.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/data.dart';
@@ -8,7 +9,10 @@ import '../provider/data.dart';
    @override
    Widget build(BuildContext context) {
      final userData = Provider.of<data>(context).users;
+     final currentUser = Provider.of<data>(context).currentUser;
      double media = MediaQuery.of(context).size.height;
+     Provider.of<Post>(context).getPost(currentUser['username']);
+     final postData = Provider.of<Post>(context).posts;
      return Column(
        children: [
           Expanded(
@@ -28,7 +32,7 @@ import '../provider/data.dart';
                              radius:25,
                              child: ClipOval(child: Image.network("${userData[index].storyImageUrl}$index/200/200",fit: BoxFit.cover,),),),
                            SizedBox(width: 8,),
-                           Text("${userData[index].name}",style: TextStyle(fontWeight: FontWeight.bold),)
+                           Text("${postData[index]['username']}",style: TextStyle(fontWeight: FontWeight.bold),)
                          ],
                        ),
                        SizedBox(height: 10,),
@@ -36,7 +40,7 @@ import '../provider/data.dart';
                          width: double.infinity,
                          // height: constraints.maxHeight*0.5,
                          color: Colors.orange,
-                         child: Image.network(image,fit: BoxFit.cover,),
+                         child: Image.network('http://192.168.56.1:3000/${postData[index]['image_url']}',fit: BoxFit.cover,),
                        ),
                        Container(
                          height: 40,
@@ -57,12 +61,12 @@ import '../provider/data.dart';
                        ),
                        Container(
                          margin:EdgeInsets.only(left: 10,bottom: 20),
-                         child: Text("Sign up for the great deliverability, stay for the...",),
+                         child: Text('${postData[index]['caption']}'),
                        )
 
                      ],
                    ),
-                 itemCount: userData.length,
+                 itemCount: postData.length,
                ),
              ),
          ),

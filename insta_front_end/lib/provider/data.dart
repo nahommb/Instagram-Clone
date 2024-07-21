@@ -162,7 +162,7 @@ class data with ChangeNotifier{
       http.Response followersResponse = await http.get(urll);
       List<dynamic> followersResponseData = jsonDecode(followersResponse.body);
       followers = followersResponseData.length;
-      print(followers);
+      print('checkkkkkkkkkkkkk $followers');
     }
     catch(err){
     //  print('error lee $err');
@@ -185,12 +185,13 @@ class data with ChangeNotifier{
       print(responseData['followingList']);
 
       if(responseData['followingList'].length>0){
-        for(int i=0;i<=responseData.length;i++){
+       final dataLength = responseData['followingList'].length;
+        for(int i=0;i<=dataLength;i++){
           followsList.add(responseData['followingList'][i]);
         }
 
       }
-      print('lee $followsList');
+
     }
     catch(err){
      // print(err);

@@ -1,3 +1,5 @@
+import 'dart:convert';
+
 import 'package:flutter/cupertino.dart';
 import 'dart:io';
 import 'package:http/http.dart' as http;
@@ -6,9 +8,15 @@ import 'package:insta_front_end/screens/newPostScreen.dart';
 
 
 class Post with ChangeNotifier{
-
+  final serverIpAddress = '192.168.56.1'; //''; //localhost
   File? image;
   final _picker = ImagePicker();
+
+  List<dynamic> _posts =[];
+  List<dynamic> get posts{
+
+    return [..._posts];
+  }
 
   Future<void> getImage(context)async{
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery,imageQuality: 90);
@@ -49,5 +57,21 @@ class Post with ChangeNotifier{
       print(err);
     }
 
+  }
+
+  Future<void> getPost(username) async{
+    var url = Uri.parse('http://$serverIpAddress:3000/home/post/$username');
+    http.Response response = await http.get(url);
+    List<dynamic> bd = jsonDecode(response.body);
+    print(bd.length);
+    final bdl = bd.length;
+    _posts = bd;
+    // for(int i=0;i<bdl;i++){
+    //   _posts.clear();
+    //
+    //   // _posts.add(bd[i]);
+    // }
+
+     print(posts);
   }
 }

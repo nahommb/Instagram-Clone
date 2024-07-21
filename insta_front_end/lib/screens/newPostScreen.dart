@@ -26,7 +26,7 @@ class _NewPostScreenState extends State<NewPostScreen> {
       body: Column(
         children: [
           Container(
-            height: 300,
+            height: 500,
            width: double.infinity,
            padding: EdgeInsets.all(10),
            // color: Colors.lightBlue,
