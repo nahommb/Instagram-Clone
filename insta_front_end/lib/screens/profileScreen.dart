@@ -3,6 +3,7 @@ import 'package:insta_front_end/screens/login.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/data.dart';
+import '../provider/post.dart';
 class ProfileScreen extends StatelessWidget {
   const ProfileScreen({Key? key}) : super(key: key);
 
@@ -14,6 +15,7 @@ class ProfileScreen extends StatelessWidget {
 
     final userData = Provider.of<data>(context);
     userData.followingAndFollowers(userData.currentUser['username']);
+    final postData = Provider.of<Post>(context);
     //userData.followed(userData.currentUser['username']);
     //userData.followsList.clear();
     return Scaffold(
@@ -66,6 +68,7 @@ class ProfileScreen extends StatelessWidget {
                     onPressed: (){
                     // userData.clearSuggestion();
                     userData.clearSearch();
+                    postData.posts.clear();
                     // userData.clearfollowUsers();
                     userData.clearUsers();
                     Navigator.pushReplacementNamed(context, Login.routName);

@@ -3,16 +3,37 @@ import 'package:insta_front_end/provider/post.dart';
 import 'package:provider/provider.dart';
 
 import '../provider/data.dart';
- class mainBody extends StatelessWidget {
+ class mainBody extends StatefulWidget {
    const mainBody({Key? key}) : super(key: key);
+
+  @override
+  State<mainBody> createState() => _mainBodyState();
+}
+
+class _mainBodyState extends State<mainBody> {
    final image = 'http://192.168.56.1:3001/previousworks/20220106_144116.jpg';
+
+   bool isInit = true;
+
+   void didChangeDependencies() async{
+     // TODO: implement didChangeDependencies
+     if(isInit){
+       final currentUser = Provider.of<data>(context).currentUser;
+       Provider.of<Post>(context).getPost(currentUser['username']);
+
+     }
+     isInit = false;
+     super.didChangeDependencies();
+   }
+
    @override
    Widget build(BuildContext context) {
      final userData = Provider.of<data>(context).users;
-     final currentUser = Provider.of<data>(context).currentUser;
+
      double media = MediaQuery.of(context).size.height;
-     Provider.of<Post>(context).getPost(currentUser['username']);
+
      final postData = Provider.of<Post>(context).posts;
+     //print(postData[5]);
      return Column(
        children: [
           Expanded(
@@ -30,7 +51,7 @@ import '../provider/data.dart';
                          children: [
                            CircleAvatar(
                              radius:25,
-                             child: ClipOval(child: Image.network("${userData[index].storyImageUrl}$index/200/200",fit: BoxFit.cover,),),),
+                             child: ClipOval(child: Image.network("${userData[1].storyImageUrl}1/200/200",fit: BoxFit.cover,),),),
                            SizedBox(width: 8,),
                            Text("${postData[index]['username']}",style: TextStyle(fontWeight: FontWeight.bold),)
                          ],
@@ -74,5 +95,5 @@ import '../provider/data.dart';
        ],
      );
    }
- }
+}
 

@@ -17,7 +17,11 @@ class Post with ChangeNotifier{
 
     return [..._posts];
   }
+  List<dynamic> _allposts =[];
+  List<dynamic> get allposts{
 
+    return [..._allposts];
+  }
   Future<void> getImage(context)async{
     final pickedFile = await _picker.pickImage(source: ImageSource.gallery,imageQuality: 90);
     if(pickedFile!=null){
@@ -64,14 +68,26 @@ class Post with ChangeNotifier{
     http.Response response = await http.get(url);
     List<dynamic> bd = jsonDecode(response.body);
     print(bd.length);
-    final bdl = bd.length;
+   // final bdl = bd.length;
+    _posts.clear();
     _posts = bd;
     // for(int i=0;i<bdl;i++){
-    //   _posts.clear();
+    //
     //
     //   // _posts.add(bd[i]);
     // }
+    //print(posts.length);
+    notifyListeners();
 
-     print(posts);
+  }
+  Future<void> getAllPost() async{
+    var url = Uri.parse('http://$serverIpAddress:3000/user/post/');
+    http.Response response = await http.get(url);
+    List<dynamic> bd = jsonDecode(response.body);
+    _allposts.clear();
+    _allposts = bd;
+
+    notifyListeners();
+
   }
 }
